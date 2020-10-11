@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/peachskin/img/favicon.png">
+  <link rel="icon" type="image/png" href="/peachskin/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="就是摸鱼">
+  <meta name="author" content="peach-water">
+  <meta name="keywords" content="">
+  <title>vscode - Thinking Peach</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/peachskin/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/peachskin/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/peachskin/js/utils.js" ></script>
+  <script  src="/peachskin/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/peachskin/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/peachskin/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-11 15:15" pubdate>
+        2020年10月11日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      592 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">vscode</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <center><font size='6'>如何让VsCode编写C++/C代码更加高效</center>
+  <center><font size='0'>就是折腾+摸鱼+折腾</center>
+
+<hr>
+<font size='4'>
+
+<h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><h3 id="下载安装起步"><a href="#下载安装起步" class="headerlink" title="下载安装起步"></a>下载安装起步</h3><p><font size='3'>从微软家里搞来一个VsCode的安装包应该不会很难吧、不会吧不会吧…………</p>
+<center>
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMdYGzeQqSW5fcbollGfBqCjs5o0IJ0MIYyg&usqp=CAU" srcset="/peachskin/img/loading.gif" width="70">
+
+<p>好吧，还是挂上<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">链接</a>好了。</p>
+</center>
+
+<p>　　下载好安装包，同意条款，一路直走下一步， 这里没有什么东西可以讲述的，主要就是最后一步，这个一定要点上，不然出什么奇奇怪怪的问题，我也不知道。怎么修复合适，也许<a target="_blank" rel="noopener" href="https://www.baidu.com/">这里</a>知道怎么修复你的问题，或者是<a target="_blank" rel="noopener" href="https://www.google.com/">这里</a>。</p>
+ <center>
+ <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS3j-UQXtTp5DsqUi829BjjjfkyGcpILITS-Q&usqp=CAU" srcset="/peachskin/img/loading.gif" width="450" height="350" >
+  <center><font size='00'>这是一张很模糊的图片，就不要吐槽了 </center>
+
+
+
+<p>如果还是出现了什么莫名其妙的问题，请点击<a target="_blank" rel="noopener" href="https://www.baidu.com/">这里</a>。我相信这里一定能解决你所有问题</p>
+</center> 
+
+<font size='4'>
+
+<h2 id="插件拓展"><a href="#插件拓展" class="headerlink" title="插件拓展"></a>插件拓展</h2><p><font size="3"> 插件啊，看得见左侧那个小玩意不</p>
+<center>
+<img src="https://sc03.alicdn.com/kf/H4dd02d6622ee4b53b54d92b9c167fd72i.jpg" srcset="/peachskin/img/loading.gif">
+  </center>
+
+
+<h3 id="1-C-Intelligence"><a href="#1-C-Intelligence" class="headerlink" title="1.C++ Intelligence"></a>1.C++ Intelligence</h3><center>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcToK7QWvWNkTKH_PBsAqnWcOib9eOUenJhMwQ&usqp=CAU" srcset="/peachskin/img/loading.gif">
+
+<p><font size="4">　　没错，就是这个图标的玩意。<br>  <font size="0">  　　<em><del>其实作者自己也没有什么直观感受，它有什么用</del></em> （误）</p>
+</center>
+  <font size='3'>
+
+<h3 id="2-Chinese-Simplified"><a href="#2-Chinese-Simplified" class="headerlink" title="2.Chinese (Simplified)"></a>2.Chinese (Simplified)</h3><p>　　<font size="3">我相信一开始打开Vscode的同学都是类型崩溃的，尤其是新手，英语水平并不是很好。那么这个插件就必须要上啦。</p>
+<center>
+  <img src='
+https://ae04.alicdn.com/kf/H9b29c9f660f44b11a77406cc21a40363t.jpg'>
+</center>
+
+<p>　　安装好了以后，重启一下VsCode就完成了</p>
+<h3 id="3-GBK-To-UTF8"><a href="#3-GBK-To-UTF8" class="headerlink" title="3.GBK To UTF8"></a>3.GBK To UTF8</h3><p>  　　如果在c++文件中有中文字符，你可能会看见保存之前所有中文字符的地方变成乱码了，这个时候，就需要他来救驾。</p>
+<h3 id="4-vscode-icons"><a href="#4-vscode-icons" class="headerlink" title="4.vscode-icons"></a>4.vscode-icons</h3><p>　　没啥，就是我一直在使用的图标包，其实是挺好看的。具体的使用方法在其官网和上已经写的非常清楚了，点击<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">这里</a>前往</p>
+<h3 id="5-C-C-GUN-global"><a href="#5-C-C-GUN-global" class="headerlink" title="5.C/C++ GUN global"></a>5.C/C++ GUN global</h3><p>　　提升你代码效率的好帮手，能够快速定位到函数、变量的声明区。同时在打码的时候还可以自动提示当前类有什么成员函数、成员变量。<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global">这里</a>是关于它的详细说明。</p>
+<p><font size='0'><center>图先欠着</center><font size='3'></p>
+<h3 id="6-GlassIt-VSC"><a href="#6-GlassIt-VSC" class="headerlink" title="6.GlassIt-VSC"></a>6.GlassIt-VSC</h3><p>　　让你的vscode透明，其实就是一个美化插件啦，要注意一件事情，就是安装好了之后，vscode会一直提醒你软件损坏，需要重新安装，其实是没毛病的，不要慌。这是为了美化（折腾）必须要经历的事情。</p>
+<p>  补充一个链接：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=s-nlf-fh.glassit">在这里，不用找了</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/tags/%E6%8E%A8%E8%8D%90/">推荐</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/peachskin/2020/10/11/hello-world/">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/peachskin/js/debouncer.js" ></script>
+<script  src="/peachskin/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/peachskin/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/peachskin/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "vscode&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/peachskin/js/local-search.js" ></script>
+  <script>
+    var path = "/peachskin/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

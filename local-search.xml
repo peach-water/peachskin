@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>vscode</title>
+    <link href="/peachskin/2020/10/11/vscode/"/>
+    <url>/peachskin/2020/10/11/vscode/</url>
+    
+    <content type="html"><![CDATA[<center><font size='6'>如何让VsCode编写C++/C代码更加高效</center>  <center><font size='0'>就是折腾+摸鱼+折腾</center><hr><font size='4'><h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><h3 id="下载安装起步"><a href="#下载安装起步" class="headerlink" title="下载安装起步"></a>下载安装起步</h3><p><font size='3'>从微软家里搞来一个VsCode的安装包应该不会很难吧、不会吧不会吧…………</p><center> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMdYGzeQqSW5fcbollGfBqCjs5o0IJ0MIYyg&usqp=CAU" width="70"><p>好吧，还是挂上<a href="https://code.visualstudio.com/">链接</a>好了。</p></center><p>　　下载好安装包，同意条款，一路直走下一步， 这里没有什么东西可以讲述的，主要就是最后一步，这个一定要点上，不然出什么奇奇怪怪的问题，我也不知道。怎么修复合适，也许<a href="https://www.baidu.com/">这里</a>知道怎么修复你的问题，或者是<a href="https://www.google.com/">这里</a>。</p> <center> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS3j-UQXtTp5DsqUi829BjjjfkyGcpILITS-Q&usqp=CAU" width="450" height="350" >  <center><font size='00'>这是一张很模糊的图片，就不要吐槽了 </center><p>如果还是出现了什么莫名其妙的问题，请点击<a href="https://www.baidu.com/">这里</a>。我相信这里一定能解决你所有问题</p></center> <font size='4'><h2 id="插件拓展"><a href="#插件拓展" class="headerlink" title="插件拓展"></a>插件拓展</h2><p><font size="3"> 插件啊，看得见左侧那个小玩意不</p><center><img src="https://sc03.alicdn.com/kf/H4dd02d6622ee4b53b54d92b9c167fd72i.jpg">  </center><h3 id="1-C-Intelligence"><a href="#1-C-Intelligence" class="headerlink" title="1.C++ Intelligence"></a>1.C++ Intelligence</h3><center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcToK7QWvWNkTKH_PBsAqnWcOib9eOUenJhMwQ&usqp=CAU"><p><font size="4">　　没错，就是这个图标的玩意。<br>  <font size="0">  　　<em><del>其实作者自己也没有什么直观感受，它有什么用</del></em> （误）</p></center>  <font size='3'><h3 id="2-Chinese-Simplified"><a href="#2-Chinese-Simplified" class="headerlink" title="2.Chinese (Simplified)"></a>2.Chinese (Simplified)</h3><p>　　<font size="3">我相信一开始打开Vscode的同学都是类型崩溃的，尤其是新手，英语水平并不是很好。那么这个插件就必须要上啦。</p><center>  <img src='https://ae04.alicdn.com/kf/H9b29c9f660f44b11a77406cc21a40363t.jpg'></center><p>　　安装好了以后，重启一下VsCode就完成了</p><h3 id="3-GBK-To-UTF8"><a href="#3-GBK-To-UTF8" class="headerlink" title="3.GBK To UTF8"></a>3.GBK To UTF8</h3><p>  　　如果在c++文件中有中文字符，你可能会看见保存之前所有中文字符的地方变成乱码了，这个时候，就需要他来救驾。</p><h3 id="4-vscode-icons"><a href="#4-vscode-icons" class="headerlink" title="4.vscode-icons"></a>4.vscode-icons</h3><p>　　没啥，就是我一直在使用的图标包，其实是挺好看的。具体的使用方法在其官网和上已经写的非常清楚了，点击<a href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">这里</a>前往</p><h3 id="5-C-C-GUN-global"><a href="#5-C-C-GUN-global" class="headerlink" title="5.C/C++ GUN global"></a>5.C/C++ GUN global</h3><p>　　提升你代码效率的好帮手，能够快速定位到函数、变量的声明区。同时在打码的时候还可以自动提示当前类有什么成员函数、成员变量。<a href="https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global">这里</a>是关于它的详细说明。</p><p><font size='0'><center>图先欠着</center><font size='3'></p><h3 id="6-GlassIt-VSC"><a href="#6-GlassIt-VSC" class="headerlink" title="6.GlassIt-VSC"></a>6.GlassIt-VSC</h3><p>　　让你的vscode透明，其实就是一个美化插件啦，要注意一件事情，就是安装好了之后，vscode会一直提醒你软件损坏，需要重新安装，其实是没毛病的，不要慌。这是为了美化（折腾）必须要经历的事情。</p><p>  补充一个链接：<a href="https://marketplace.visualstudio.com/items?itemName=s-nlf-fh.glassit">在这里，不用找了</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>推荐</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/peachskin/2020/10/11/hello-world/"/>
+    <url>/peachskin/2020/10/11/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>

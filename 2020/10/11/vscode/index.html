@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.7k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      22
        分钟
     </span>
   
@@ -233,7 +233,7 @@
 
 <p>　　下载好安装包，同意条款，一路直走下一步， 这里没有什么东西可以讲述的，主要就是最后一步，这个一定要点上，不然出什么奇奇怪怪的问题，我也不知道。怎么修复合适，也许<a target="_blank" rel="noopener" href="https://www.baidu.com/">这里</a>知道怎么修复你的问题，或者是<a target="_blank" rel="noopener" href="https://www.google.com/">这里</a>.<br> <center><br> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS3j-UQXtTp5DsqUi829BjjjfkyGcpILITS-Q&usqp=CAU" srcset="/peachskin/img/loading.gif" width="450" height="350" ><br>  <font size='00'>这是一张很模糊的图片，就不要吐槽了 </font></center><br>　　如果还是出现了什么莫名其妙的问题，请点击<a target="_blank" rel="noopener" href="https://www.baidu.com/">这里</a>。我相信这里一定能解决你所有问题</center>  </p>
 <h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><ul>
-<li><h4 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h4>　　在Windows环境下推荐<a target="_blank" rel="noopener" href="http://www.mingw.org/">MinGW</a><br><font size='6'><font color="red"><br>　　不要安装到Ｃ盘<br>　　不要安装到Ｃ盘<br>　　不要安装到Ｃ盘<br>　　重要的事情说3遍  </font></font><br>　　安装完成之后，还需要添加到系统的环境变量，重启之后才能起作用。<br>　　检验GCC编译器是否安装正确。打开命令行(点击开始菜单 -&gt; 运行，输入cmd.exe后确定)<pre><code class="hljs cmd"><span class="hljs-number">1</span> | gcc -v</code></pre>
+<li><h4 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h4>　　在Windows环境下推荐<a target="_blank" rel="noopener" href="http://www.mingw.org/">MinGW</a><br><font size='6'><font color="red"><br>　　一定要重启<br>　　一定要重启<br>　　一定要重启<br>　　重要的事情说3遍  </font></font><br>　　安装完成之后，还需要添加到系统的环境变量，重启之后才能起作用。<br>　　检验GCC编译器是否安装正确。打开命令行(点击开始菜单 -&gt; 运行，输入cmd.exe后确定)<pre><code class="hljs cmd"><span class="hljs-number">1</span> | gcc -v</code></pre>
 
 </li>
 </ul>
@@ -303,58 +303,59 @@ $ sudo apt install g++                       PS:有些时候不会自己安装�
     &#125;,  
     ]
 &#125;</code></pre></li>
-<li><h4 id="然后是tasks-json"><a href="#然后是tasks-json" class="headerlink" title="　然后是tasks.json"></a>　然后是tasks.json</h4><pre><code class="hljs cmd">&#123;
-    &quot;tasks&quot;: [
+<li><h4 id="然后是tasks-json"><a href="#然后是tasks-json" class="headerlink" title="　然后是tasks.json"></a>　然后是tasks.json</h4><pre><code class="hljs bash">&#123;
+    <span class="hljs-string">&quot;tasks&quot;</span>: [
         &#123;
-            &quot;<span class="hljs-built_in">label</span>&quot;: &quot;Build&quot;,
-            &quot;command&quot;: &quot;g++&quot;,
-            &quot;args&quot;: [
-                &quot;-g&quot;,
-                &quot;-Wall&quot;,
-                &quot;-std=c++<span class="hljs-number">11</span>&quot;,
-                &quot;-lm&quot;,
-                &quot;$&#123;file&#125;&quot;,
-                &quot;-o&quot;,
-                &quot;$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe&quot;
+            <span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;Build&quot;</span>,
+            <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;g++&quot;</span>,
+            <span class="hljs-string">&quot;args&quot;</span>: [
+                <span class="hljs-string">&quot;-g&quot;</span>,
+                <span class="hljs-string">&quot;-Wall&quot;</span>,
+                <span class="hljs-string">&quot;-std=c++11&quot;</span>,
+                <span class="hljs-string">&quot;-lm&quot;</span>,
+                <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;file&#125;</span>&quot;</span>,
+                <span class="hljs-string">&quot;-o&quot;</span>,
+                <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;fileDirname&#125;</span>/<span class="hljs-variable">$&#123;fileBasenameNoExtension&#125;</span>.exe&quot;</span>
             ],
-            &quot;presentation&quot;: &#123;
-                &quot;reveal&quot;: &quot;always&quot;,
-                &quot;<span class="hljs-built_in">echo</span>&quot;: false,
-                &quot;focus&quot;: true
+            <span class="hljs-string">&quot;presentation&quot;</span>: &#123;
+                <span class="hljs-string">&quot;reveal&quot;</span>: <span class="hljs-string">&quot;always&quot;</span>,
+                <span class="hljs-string">&quot;echo&quot;</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-string">&quot;focus&quot;</span>: <span class="hljs-literal">true</span>
             &#125;,
-            &quot;problemMatcher&quot;: &#123;
-                &quot;owner&quot;: &quot;cpp&quot;,
-                &quot;fileLocation&quot;: &quot;absolute&quot;,
-                &quot;pattern&quot;: &#123;
-                    &quot;regexp&quot;: &quot;^(.*):(\\d+):(\\d+):\\s+(error):\\s+(.*)$&quot;,
-                    &quot;file&quot;: <span class="hljs-number">1</span>,
-                    &quot;line&quot;: <span class="hljs-number">2</span>,
-                    &quot;column&quot;: <span class="hljs-number">3</span>,
-                    &quot;severity&quot;: <span class="hljs-number">4</span>,
-                    &quot;message&quot;: <span class="hljs-number">5</span>
+            <span class="hljs-string">&quot;problemMatcher&quot;</span>: &#123;
+                <span class="hljs-string">&quot;owner&quot;</span>: <span class="hljs-string">&quot;cpp&quot;</span>,
+                <span class="hljs-string">&quot;fileLocation&quot;</span>: <span class="hljs-string">&quot;absolute&quot;</span>,
+                <span class="hljs-string">&quot;pattern&quot;</span>: &#123;
+                    <span class="hljs-string">&quot;regexp&quot;</span>: <span class="hljs-string">&quot;^(.*):(\\d+):(\\d+):\\s+(error):\\s+(.*)$&quot;</span>,
+                    <span class="hljs-string">&quot;file&quot;</span>: 1,
+                    <span class="hljs-string">&quot;line&quot;</span>: 2,
+                    <span class="hljs-string">&quot;column&quot;</span>: 3,
+                    <span class="hljs-string">&quot;severity&quot;</span>: 4,
+                    <span class="hljs-string">&quot;message&quot;</span>: 5
                 &#125;
             &#125;
         &#125;,
         &#123;
-            &quot;<span class="hljs-built_in">label</span>&quot;: &quot;Run&quot;,
-            &quot;<span class="hljs-built_in">type</span>&quot;: &quot;shell&quot;,
-            &quot;dependsOn&quot;: &quot;Build&quot;,
-            &quot;command&quot;: &quot;$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe&quot;,
-            &quot;args&quot;: [],
-            &quot;presentation&quot;: &#123;
-                &quot;reveal&quot;: &quot;always&quot;,
-                &quot;focus&quot;: true
+            <span class="hljs-string">&quot;label&quot;</span>: <span class="hljs-string">&quot;Run&quot;</span>,
+            <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;shell&quot;</span>,
+            <span class="hljs-string">&quot;dependsOn&quot;</span>: <span class="hljs-string">&quot;Build&quot;</span>,
+            <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;fileDirname&#125;</span>/<span class="hljs-variable">$&#123;fileBasenameNoExtension&#125;</span>.exe&quot;</span>,
+            <span class="hljs-string">&quot;args&quot;</span>: [],
+            <span class="hljs-string">&quot;presentation&quot;</span>: &#123;
+                <span class="hljs-string">&quot;reveal&quot;</span>: <span class="hljs-string">&quot;always&quot;</span>,
+                <span class="hljs-string">&quot;focus&quot;</span>: <span class="hljs-literal">true</span>
             &#125;,
-            &quot;problemMatcher&quot;: [],
-            &quot;group&quot;: &#123;
-                &quot;kind&quot;: &quot;test&quot;,
-                &quot;isDefault&quot;: true
+            <span class="hljs-string">&quot;problemMatcher&quot;</span>: [],
+            <span class="hljs-string">&quot;group&quot;</span>: &#123;
+                <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+                <span class="hljs-string">&quot;isDefault&quot;</span>: <span class="hljs-literal">true</span>
             &#125;
         &#125;
 
     ],
-    &quot;version&quot;: &quot;<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>&quot;
-&#125;</code></pre></li>
+    <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;2.0.0&quot;</span>
+&#125;</code></pre>
+　　当然以上文件其实也可以直接使用vscode自动生成的，只要修改了对应的文件路径就可以了。此处只是放上了我的配置，理论上直接套用没有问题，实际没有测试过（逃）</li>
 <li>Linux的<br>　　其实也不难，修改中文的路径为对应的GDB路径就行了，此处不再粘贴代码</li>
 </ul>
 <h2 id="插件拓展"><a href="#插件拓展" class="headerlink" title="插件拓展"></a>插件拓展</h2><p><font size="3"> 　插件啊，看得见左侧那个小玩意不</font></p>
@@ -374,7 +375,7 @@ https://ae04.alicdn.com/kf/H9b29c9f660f44b11a77406cc21a40363t.jpg'>
 </center>
 　　安装好了以后，重启一下VsCode就完成了
 
-<h3 id="3-GBK-To-UTF8"><a href="#3-GBK-To-UTF8" class="headerlink" title="　3.GBK To UTF8"></a>　3.GBK To UTF8</h3><p>  　　如果在c++文件中有中文字符，你可能会看见保存之前所有中文字符的地方变成乱码了，这个时候，就需要他来救驾。</p>
+<h3 id="3-GBK-To-UTF8"><a href="#3-GBK-To-UTF8" class="headerlink" title="　3.GBK To UTF8"></a>　3.GBK To UTF8</h3><p>  　　如果在c++文件中有中文字符，你可能会看见保存之前所有中文字符的地方变成乱码了，这个时候，就需要他来救驾。当然反过来的设计似乎还没有，要是想要能够在CMD中正确输出，建议再打码开始之前就是修改字符编码方式为“GBK”</p>
 <h3 id="4-vscode-icons"><a href="#4-vscode-icons" class="headerlink" title="　4.vscode-icons"></a>　4.vscode-icons</h3><p>　　没啥，就是我一直在使用的图标包，其实是挺好看的。具体的使用方法在其官网和上已经写的非常清楚了，点击<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">这里</a>前往</p>
 <h3 id="5-C-C-GUN-global"><a href="#5-C-C-GUN-global" class="headerlink" title="　5.C/C++ GUN global"></a>　5.C/C++ GUN global</h3><p>　　提升你代码效率的好帮手，能够快速定位到函数、变量的声明区。同时在打码的时候还可以自动提示当前类有什么成员函数、成员变量。<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global">这里</a>是关于它的详细说明。</p>
 <p><font size='0'><center>图先欠着</center></font></p>
@@ -419,7 +420,7 @@ https://ae04.alicdn.com/kf/H9b29c9f660f44b11a77406cc21a40363t.jpg'>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/peachskin/2020/10/11/hello-world/">
+                      <a href="/peachskin/2020/10/07/hello-world/">
                         <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>

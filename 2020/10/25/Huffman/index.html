@@ -17,7 +17,7 @@
   <meta name="description" content="就是摸鱼">
   <meta name="author" content="peach-water">
   <meta name="keywords" content="">
-  <title>download - Thinking Peach</title>
+  <title>Huffman - Thinking Peach</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-11 20:01" pubdate>
-        2020年10月11日 晚上
+      <time datetime="2020-10-25 22:36" pubdate>
+        2020年10月25日 晚上
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      540 字
+      1.7k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      19
        分钟
     </span>
   
@@ -217,33 +217,93 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">download</h1>
+            <h1 style="display: none">Huffman</h1>
             
             <div class="markdown-body" id="post-body">
-              <center><font size='8'>就算是摸鱼也要好好的摸</font></center>
+              <center><font size='6'>使用Huffman编码实现一个压缩和解压缩软件</font></center>  
 
+<h2 id="初识Huffman"><a href="#初识Huffman" class="headerlink" title="初识Huffman"></a>初识Huffman</h2><p>　　简单说明一下Huffman编码的原理<br>  　　实现霍夫曼编码的方式主要是创建一个二叉树和其节点。这些树的节点可以存储在数组里，数组的大小为符号（symbols）数的大小n，而节点分别是终端节点（叶节点）与非终端节点（内部节点）。</p>
+<p>　　一开始，所有的节点都是终端节点，节点内有三个字段：</p>
+<p>　　1.符号（Symbol）</p>
+<p>　　2.权重（Weight、Probabilities、Frequency）</p>
+<p>　　3.指向父节点的链接（Link to its parent node）</p>
+<p>　　而非终端节点内有四个字段：</p>
+<p>　　1.权重（Weight、Probabilities、Frequency）</p>
+<p>　　2.指向两个子节点的 链接（Links to two child node）</p>
+<p>　　3.指向父节点的链接（Link to its parent node）</p>
+<p>　　基本上，我们用’0’与’1’分别代表指向左子节点与右子节点，最后为完成的二叉树共有n个终端节点与n-1个非终端节点，去除了不必要的符号并产生最佳的编码长度。</p>
+<p>　　过程中，每个终端节点都包含着一个权重（Weight、Probabilities、Frequency），两两终端节点结合会产生一个新节点，新节点的权重是由两个权重最小的终端节点权重之总和，并持续进行此过程直到只剩下一个节点为止。</p>
+<p>　　实现霍夫曼树的方式有很多种，可以使用优先队列（Priority Queue）简单达成这个过程，给与权重较低的符号较高的优先级（Priority），算法如下：</p>
+<p>　　⒈把n个终端节点加入优先队列，则n个节点都有一个优先权Pi，1 ≤ i ≤ n</p>
+<p>　　⒉如果队列内的节点数&gt;1，则：</p>
+<p>　　　⑴从队列中移除两个最小的Pi节点，即连续做两次remove（min（Pi）, Priority_Queue)<br>　　　⑵产生一个新节点，此节点为（1）之移除节点之父节点，而此节点的权重值为（1）两节点之权重和<br>　　　⑶把（2）产生之节点加入优先队列中<br>　　⒊最后在优先队列里的点为树的根节点（root）<br>　　<br>　　而此算法的时间复杂度（ Time Complexity）为O（n log n）；因为有n个终端节点，所以树总共有2n-1个节点，使用优先队列每个循环须O（log n）。</p>
+<p>　　此外，有一个更快的方式使时间复杂度降至线性时间（Linear Time）O（n），就是使用两个队列（Queue）创件霍夫曼树。第一个队列用来存储n个符号（即n个终端节点）的权重，第二个队列用来存储两两权重的合（即非终端节点）。此法可保证第二个队列的前端（Front）权重永远都是最小值，且方法如下：</p>
+<p>　　⒈把n个终端节点加入第一个队列（依照权重大小排列，最小在前端）<br>　<br>　　⒉如果队列内的节点数&gt;1，则：</p>
+<p>　　　⑴从队列前端移除两个最低权重的节点<br>　　　⑵将（1）中移除的两个节点权重相加合成一个新节点<br>　　　⑶加入第二个队列<br>　　⒊最后在第一个队列的节点为根节点</p>
+<p>　　虽然使用此方法比使用优先队列的时间复杂度还低，但是注意此法的第1项，节点必须依照权重大小加入队列中，如果节点加入顺序不按大小，则需要经过排序，则至少花了O（n log n）的时间复杂度计算。</p>
+<p>　　但是在不同的状况考量下，时间复杂度并非是最重要的，如果我们今天考虑英文字母的出现频率，变量n就是英文字母的26个字母，则使用哪一种算法时间复杂度都不会影响很大，因为n不是一笔庞大的数字。</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ul>
+<li><h3 id="关于Huffman节点的定义"><a href="#关于Huffman节点的定义" class="headerlink" title="关于Huffman节点的定义"></a>关于Huffman节点的定义</h3><pre><code class="hljs code">struct Hufnode&#123;
+	struct Hufnode *lc;		&#x2F;&#x2F;左右子树
+    struct Hufnode *rc;
+    unsigned int pow;		&#x2F;&#x2F;当前节点的权重
+    unsigned char Data;		&#x2F;&#x2F;这个节点如果是叶子结点，了么存储对应的字符
+    bool leaf;				&#x2F;&#x2F;标记是否是字符
+    string code;			&#x2F;&#x2F;存储对应的Huffman编码
+    Hufnode() : lc(NULL), rc(NULL), leaf(true)	&#x2F;&#x2F;初始化节点
+    &#123;
+    &#125;
+&#125;</code></pre>
+<p>除此之外我们还需要实现一些节点赋值的操作符重载，方便赋值</p>
+<pre><code class="hljs code">void operator&#x3D;(Hufnode *oth)	&#x2F;&#x2F;重载等于号的意义非常重大
+&#123;
+    this-&gt;code &#x3D; oth-&gt;code;
+    this-&gt;Data &#x3D; oth-&gt;Data;
+    this-&gt;lc &#x3D; oth-&gt;lc;
+    this-&gt;pow &#x3D; oth-&gt;pow;
+    this-&gt;rc &#x3D; oth-&gt;rc;
+    this-&gt;leaf &#x3D; oth-&gt;leaf;
+&#125;
+operator Hufnode *()	&#x2F;&#x2F;同样的，重载Hufnode到Hufnide*的意义重大
+&#123;
+    Hufnode *res &#x3D; new Hufnode;
+    res-&gt;Data &#x3D; this-&gt;Data;
+    res-&gt;pow &#x3D; this-&gt;pow;
+    res-&gt;code &#x3D; this-&gt;code;
+    res-&gt;lc &#x3D; this-&gt;lc;
+    res-&gt;leaf &#x3D; this-&gt;leaf;
+    res-&gt;rc &#x3D; this-&gt;rc;
+    return res;
+&#125;</code></pre>
+</li>
+<li><h3 id="实现Huffman树的构建"><a href="#实现Huffman树的构建" class="headerlink" title="实现Huffman树的构建"></a>实现Huffman树的构建</h3><p>　　根据开头介绍的两种方法，各有千秋，其中我们使用比较容易理解的方法，此处不使用优先队列等等优化性的算法，转向使用冒泡排序，因为排序的内容不算多，而且在第一次排序完成之后不会有较多的排序要求，我们可以通过对冒泡优化加快速度（使其变成一个插入算法）。<br>　　此处实现一个class类，负责实现Huffman树的构建和相关</p>
+<pre><code class="hljs code">class Hufman&#123;
+	private:
+    	Hufnode * root	&#x2F;&#x2F;记录下Huffman树的根节点
+        map&lt;unsigned char, string&gt; code_map	&#x2F;&#x2F;用来快速访问字符对应的Huffman编码
+&#125;
+~~~  
+　然后我们需要实现一些相关的函数来完善这样一个Huffman类  
+~~~code  
+Hufnode *return_root();  				&#x2F;&#x2F;获得当前Huffman树的根节点
+unsigned int pow_len();				    &#x2F;&#x2F;返回文件拥有的字符数量  
+string return_code(unsigned char c);	&#x2F;&#x2F;根据字符返回对应的Huffman编码  
+void destroy(Hufnode *root);	    	&#x2F;&#x2F;递归调用，解构函数
+void build_huf(Hufnode data[], int size);	&#x2F;&#x2F;构建Huffman树，输入的是节点数量和节点  
+void update_code(Hufnode *root, string fa, const char *c);	&#x2F;&#x2F;根据建立的Huffman树，递归给每一个字符生成Huffman编码  
+void bob_sort(Hufnode data[], int size);	&#x2F;&#x2F;优化过的冒泡排序</code></pre>
+</li>
+<li><h3 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h3><p>　　<font size='4'>任务挺多，是需要单独实现的东西：  </font></p>
+<ul>
+<li>关于需要被压缩的文件读入，输出的文件格式；</li>
+<li>读入字符统计不同字符出现的次数；</li>
+<li>把编码后的文件写入到输出文件当中；</li>
+<li>特殊情况处理：最后字符不是完整的字节  <pre><code class="hljs code">void unzip(char *input, char *output)&#123;&#125;
+</code></pre></li>
+</ul>
+</li>
+</ul>
 
-<h2 id="好软推荐"><a href="#好软推荐" class="headerlink" title="好软推荐"></a>好软推荐</h2><ul>
-<li><p>一个好使的图片浏览器：<a target="_blank" rel="noopener" href="https://tw.bandisoft.com/honeyview/">honeyview</a><br>　　<font size='3'>烦恼微软家自带的图片浏览器难用？苦于自带的图片浏览器打开速度总是捉急？那么它必然是一个好选择。</font></p>
-</li>
-<li><p>文件资源浏览器推荐：<a target="_blank" rel="noopener" href="http://qttabbar.sourceforge.net/">QTTabBar</a><br>　　虽然不是很好看，甚至可以说加的内容还有一些丑陋，但是就那一点能够支持新建标签页，我就觉得比自带的文件浏览器好使。至少不用再很多个不知道所以的窗口中寻寻觅觅，最最最重要的是支持在此处打开CMD，这实在是好使。</p>
-</li>
-<li><p>软件卸载器：<a target="_blank" rel="noopener" href="https://www.iobit.com/en/index.php">IOBit Uninstall</a><br>　　还是弥补自带的软件卸载的不足，自带的能卸载软件，对！就是能够卸载软件，至于软件留下来的数据，抱歉一概不会删除。这个时候就需要请出来它。对了有些时候并不是所有的都软件卸载都需要清理数据文件，还是在清理之前好做思考。除此之外就是普通版本已经足够普通人日常使用，没有加钱上专业版的必要（当然是可以去支持一下的啦~）</p>
-</li>
-<li><p>重装系统的工具：<a target="_blank" rel="noopener" href="http://www.wepe.com.cn/">微PE</a><br>　　重装系统当然推荐，虽然现在有点变化，开始收费了。但是至少不流氓，而且收费也不算太贵，其实吧，就算买一个软碟通也不见得能够有多少便宜（支持一下良心开发者呗）。有了它，从此之后获得一U在手，天下我有；打开女生宿舍大门的万能钥匙；万能的工具人（误）等等称号</p>
-</li>
-<li><p>宇宙最强IDE：<a target="_blank" rel="noopener" href="https://peach-water.github.io/peachskin/2020/10/11/vscode/">VsCode</a>  </p>
-</li>
-<li><p>美化桌面的方法：<a target="_blank" rel="noopener" href="https://www.rainmeter.net/">Rainmeter</a><br>　　能够做到什么样子完全看自己折腾能力，最好当然是自己慢慢设计~<br>　　建议搭配贴吧上一个<a target="_blank" rel="noopener" href="http://tieba.baidu.com/p/2085771413?see_lz=1">资源帖子</a>实现</p>
-</li>
-<li></li>
-</ul>
-<h2 id="资源站"><a href="#资源站" class="headerlink" title="资源站"></a>资源站</h2><ul>
-<li>GARHUB，全球最大的代码交流平台：<a target="_blank" rel="noopener" href="https://github.com/">Github</a>  </li>
-<li>桌面美化教程资源：<a target="_blank" rel="noopener" href="https://zhutix.com/tag/10s/">致美化</a>  </li>
-<li></li>
-</ul>
-<h2 id="其他杂项"><a href="#其他杂项" class="headerlink" title="其他杂项"></a>其他杂项</h2><center><font size = '0'>最后更新时间2020年10月25日22:24</font></center>
             </div>
             <hr>
             <div>
@@ -259,18 +319,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/peachskin/2020/10/25/Huffman/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Huffman</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/peachskin/2020/10/11/vscode/">
-                        <span class="hidden-mobile">vscode</span>
+                      <a href="/peachskin/2020/10/11/download/">
+                        <span class="hidden-mobile">download</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -408,7 +462,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "download&nbsp;",
+        "Huffman&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -17,7 +17,7 @@
   <meta name="description" content="就是摸鱼">
   <meta name="author" content="peach-water">
   <meta name="keywords" content="">
-  <title>Download - Thinking Peach</title>
+  <title>scoop - Thinking Peach</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-01 21:00" pubdate>
-        2020年11月1日 晚上
+      <time datetime="2021-03-03 20:34" pubdate>
+        2021年3月3日 晚上
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      919 字
+      1.4k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      15
        分钟
     </span>
   
@@ -217,52 +217,119 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Download</h1>
+            <h1 style="display: none">scoop</h1>
             
             <div class="markdown-body" id="post-body">
-              <center><font size='8'>就算是摸鱼也要好好的摸</font></center>
+              <center><font size='8'>windows下好用的包管理器scoop</font></center>
+<center><font size='0'>脚本自动装软件是真的香</font></center>
 
+<hr>
+<h2 id="1、scoop简介"><a href="#1、scoop简介" class="headerlink" title="1、scoop简介"></a>1、scoop简介</h2><p>　　Scoop是Windows的命令行安装程序，是一个强大的包管理工具。可以在github上找到其项目的相关信息，项目<a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop">网址</a>。</p>
+<p>　　安装的起因：在平常生活中如果要安装像gcc、git等一些需要手动配置相关参数的工具，需要先去官网下载安装程序，点击安装，之后还需要配置，不仅过程麻烦，而且工具多了之后整理起来也相当不容易，配置也很杂，整个电脑就像被污染了一样。不仅如此，在windows下配置一个能使用的GCC编译器和GDB调试器，能够不出各种奇奇怪怪的问题就已经是谢天谢地了。这时候就好羡慕隔壁的linux强大的apt包管理器，或者mac的homebrew。这时候scoop横空出世。安装scoop后，只需要在命令行输入简单的一串命令即可安装你想要的软件。比如我想安装gcc，只需要输入</p>
+<pre><code class="hljs CMD">scoop install gcc
+scoop install gdb</code></pre>
 
-<h2 id="好软推荐"><a href="#好软推荐" class="headerlink" title="好软推荐"></a>好软推荐</h2><ul>
-<li><p>一个好使的图片浏览器：<a target="_blank" rel="noopener" href="https://tw.bandisoft.com/honeyview/">honeyview</a><br>　　烦恼微软家自带的图片浏览器难用？苦于自带的图片浏览器打开速度总是捉急？那么它必然是一个好选择。</p>
-</li>
-<li><p>既然都有图片了，怎么能够没有一个优秀的视频播放器：<a target="_blank" rel="noopener" href="https://potplayer.en.softonic.com/">PotPlayer</a><br>　　光这个其实还不能够说明它的强大之处，<del>你可能只会觉得他是一个外观丑陋的视频播放器，搭配上一个神秘的网址，你就能够观看全球电视直播，至少国内中央台都是可以看的</del>除此之外就是，好看无边框（需要手动设置一下），如果下载不到，在scoop里面试试？</p>
-</li>
-<li><p>文件资源浏览器推荐：<a target="_blank" rel="noopener" href="http://qttabbar.sourceforge.net/">QTTabBar</a><br>　　虽然不是很好看，甚至可以说加的内容还有一些丑陋，但是就那一点能够支持新建标签页，我就觉得比自带的文件浏览器好使。至少不用再很多个不知道所以的窗口中寻寻觅觅，最最最重要的是支持在此处打开CMD，这实在是好使。</p>
-</li>
-<li><p>软件卸载器：<a target="_blank" rel="noopener" href="https://www.iobit.com/en/index.php">IOBit Uninstall</a><br>　　还是弥补自带的软件卸载的不足，自带的能卸载软件，对！就是能够卸载软件，至于软件留下来的数据，抱歉一概不会删除。这个时候就需要请出来它。对了有些时候并不是所有的都软件卸载都需要清理数据文件，还是在清理之前好做思考。除此之外就是普通版本已经足够普通人日常使用，没有加钱上专业版的必要（当然是可以去支持一下的啦~）</p>
-</li>
-<li><p>重装系统的工具：<a target="_blank" rel="noopener" href="http://www.wepe.com.cn/">微PE</a><br>　　重装系统当然推荐，虽然现在有点变化，开始收费了。但是至少不流氓，而且收费也不算太贵，其实吧，就算买一个软碟通也不见得能够有多少便宜（支持一下良心开发者呗）。有了它，从此之后获得一U在手，天下我有；打开女生宿舍大门的万能钥匙；万能的工具人（误）等等称号</p>
-</li>
-<li><p>宇宙最强IDE：<a target="_blank" rel="noopener" href="https://peach-water.github.io/peachskin/2020/10/11/vscode/">VsCode</a>  </p>
-</li>
-<li><p>美化桌面的方法：<a target="_blank" rel="noopener" href="https://www.rainmeter.net/">Rainmeter</a><br>　　能够做到什么样子完全看自己折腾能力，最好当然是自己慢慢设计~<br>　　建议搭配贴吧上一个<a target="_blank" rel="noopener" href="http://tieba.baidu.com/p/2085771413?see_lz=1">资源帖子</a>实现</p>
-</li>
-<li><p>一个小白向写镜像工具：<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">balenaEtcher</a><br>　　我记得是大部分的镜像都可以写，更更更重要的是真的小白向，哪怕你完全不知道怎么操作，对于不同系统的镜像无所适从，都不要担心，这个可以解决你的问题。</p>
-<center><img src="https://www.balena.io/static/steps-8006dca57323756b1b84fb9408742409.gif" srcset="/peachskin/img/loading.gif"></center>
-</li>
-<li><p>强大的windows包管理器：<a target="_blank" rel="noopener" href="https://scoop.sh/">SCOOP</a><br>　　linux有apt包管理器，MAC有homebrew，大名鼎鼎的windows呢？怎么能够没有一个合适的包管理器？于是scoop应运而生，再也不用为windows环境下安装C++环境或者各种环境发愁了，连同加入PATH一起完成。<br>　　网址中有简要的安装方法，如果不行，没关系，<del>百度有非常多的方法帮助你解决所有问题</del>也许应该检查一下是不是管理员身份（我说的只是也许啊，至少，人不能，不应该）。</p>
-</li>
+<p>就能够帮我完成从安装到环境变量全部过程。从此告别百度为什么gcc命令出错。</p>
+<h2 id="2、scoop安装方法"><a href="#2、scoop安装方法" class="headerlink" title="2、scoop安装方法"></a>2、scoop安装方法</h2><h3 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1.环境要求"></a>1.环境要求</h3><ul>
+<li>Windows 7 SP1 + / Windows Server 2008+</li>
+<li>Powershell 5 或者更高版本和.NET Framework 4.5或者更高版本</li>
+<li>必须为您的用户启用PowerShell，例如Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</li>
+<li>你能够正常（最好是快速）访问最大<a target="_blank" rel="noopener" href="https://github.com/">同性交友网站</a></li>
 </ul>
-<h2 id="资源站"><a href="#资源站" class="headerlink" title="资源站"></a>资源站</h2><ul>
-<li>GAYHUB，全球最大的代码交流平台：<a target="_blank" rel="noopener" href="https://github.com/">Github</a></li>
-<li>桌面美化教程资源：<a target="_blank" rel="noopener" href="https://zhutix.com/tag/10s/">致美化</a></li>
-<li>程序员工具：<a target="_blank" rel="noopener" href="http://t.swifty.cc/md5/index.html">在线加密解密工具</a></li>
-<li>域名查询、IP4查询：<a target="_blank" rel="noopener" href="https://site.ip138.com/">其实不止从域名查IP4</a></li>
+<h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2.安装"></a>2.安装</h3><p>首先打开使用管理员身份打开PowerShell，在里面输入这条命令启用脚本：</p>
+<pre><code class="hljs CMD"><span class="hljs-built_in">set</span>-executionpolicy remotesigned -scope currentuser</code></pre>
+<p>然后使用这条命令一键安装：</p>
+<pre><code class="hljs CMD">iex (new-object <span class="hljs-built_in">net</span>.webclient).downloadstring(&#x27;https://get.scoop.sh&#x27;)
+或者
+iwr -useb get.scoop.sh | iex</code></pre>
+<p>我们等待命令运行结束，输入</p>
+<pre><code class="hljs cmd">scoop <span class="hljs-built_in">help</span></code></pre>
+<p>如果出现了<br><img src='https://img-blog.csdnimg.cn/20191109184638568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1b3lvb2k=,size_16,color_FFFFFF,t_70' ><br>　　那么恭喜安装完成。安装到此结束。顺带一提，这个软件是默认安装到“C:\用户\scoop\”底下的。而且在此下载安装的所有软件都会在这个目录的“\app\”底下。C盘空间多，那就就此结束。如果C盘空间不够，不要急，接下去看。</p>
+<h3 id="3、移动默认安装位置"><a href="#3、移动默认安装位置" class="headerlink" title="3、移动默认安装位置"></a>3、移动默认安装位置</h3><p>　　我相信各位需要这个功能，也需要这个软件是一定有动手能力的。<br>将scoop安装到自定义目录</p>
+<pre><code class="hljs cmd">$env:SCOOP=&#x27;D:\Applications\Scoop&#x27;   \\你的目录
+[Environment]::SetEnvironmentVariable(&#x27;SCOOP&#x27;, $env:SCOOP, &#x27;User&#x27;)</code></pre>
+<p>将软件安装到这个目录</p>
+<pre><code class="hljs cmd">$env:SCOOP_GLOBAL=&#x27;F:\GlobalScoopApps&#x27;
+[Environment]::SetEnvironmentVariable(&#x27;SCOOP_GLOBAL&#x27;, $env:SCOOP_GLOBAL, &#x27;Machine&#x27;)</code></pre>
+<p>以上是命令行方法。</p>
+<hr>
+<p>接下来是不适用命令行的方法：</p>
+<p>　　到“C:\用户\scoop”将所有文件拷贝到你需要的地方，例如“D:\scoop”，然后打开底下“shims”文件夹，里面有一个“scoop.cmd”的文件，右键编辑它。在里面找到这样一行代码</p>
+<pre><code class="hljs cmd">powershell -noprofile -ex unrestricted &quot;&amp; &#x27;C:\用户名字\scoop\apps\scoop\current\bin\scoop.ps1&#x27;  <span class="hljs-variable">%args%</span>;<span class="hljs-keyword">exit</span> $lastexitcode&quot;</code></pre>
+<p>修改为</p>
+<pre><code class="hljs cmd">powershell -noprofile -ex unrestricted &quot;&amp; &#x27;D:\Scoop\apps\scoop\current\bin\scoop.ps1&#x27;  <span class="hljs-variable">%args%</span>;<span class="hljs-keyword">exit</span> $lastexitcode&quot;</code></pre>
+<p>之后前往环境变量，把scoop添加的环境变量重新定位。定位到”D:\Scoop”即可。完成上述安装之后，运行</p>
+<pre><code class="hljs cmd">scoop update</code></pre>
+<p>更新软件源，更新scoop自己。就可以开始愉快的使用了。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">search</td>
+<td align="center">搜索软件</td>
+</tr>
+<tr>
+<td align="center">install</td>
+<td align="center">安装软件</td>
+</tr>
+<tr>
+<td align="center">update</td>
+<td align="center">升级软件，不跟上软件名称即为更新scoop本身</td>
+</tr>
+<tr>
+<td align="center">status</td>
+<td align="center">查看软件状态</td>
+</tr>
+<tr>
+<td align="center">uninstall</td>
+<td align="center">卸载软件，卸载scoop为“scoop uninstall scoop”</td>
+</tr>
+<tr>
+<td align="center">info</td>
+<td align="center">查看软件详情</td>
+</tr>
+<tr>
+<td align="center">home</td>
+<td align="center">查看软件主页</td>
+</tr>
+<tr>
+<td align="center">list</td>
+<td align="center">列出已安装的软件名称</td>
+</tr>
+<tr>
+<td align="center">cache</td>
+<td align="center">安装，更新软件时的缓存，建议更新后清理</td>
+</tr>
+</tbody></table>
+<h2 id="为什么推荐包管理器"><a href="#为什么推荐包管理器" class="headerlink" title="为什么推荐包管理器"></a>为什么推荐包管理器</h2><p>　　作为一个包管理器，最基础，也是最重要的功能就是<em>安装软件</em>。正在使用 Windows 的你一定在想：「为什么我要用它？为什么我不直接百度一下？」。<br>　　当然可以</p>
+<ul>
+<li>百度一下这个软件</li>
+<li>然后在一堆奇奇怪怪的下载链接中徘徊</li>
+<li>看到一个看上去最无毒，最没有捆绑的安装包</li>
+<li>小心翼翼的避开流氓特性</li>
+<li>选择一个合适的安装位置，防止到处拉屎</li>
+<li>结束</li>
 </ul>
-<h2 id="其他杂项"><a href="#其他杂项" class="headerlink" title="其他杂项"></a>其他杂项</h2><center><font size = '0'>最后更新时间2020年10月25日22:24</font></center>
+<p>好麻烦的安装！！</p>
+<p>　　Scoop 等一系列包管理器的诞生，第一大便利就是省去了上述繁琐的「搜索 - 下载 - 安装」的步骤，让我们能够通过「一行代码」急速安装。💪</p>
+<p>同时，用Scoop来安装和管理我们的软件：</p>
+<ul>
+<li>集搜索、下载、安装、更新于一体；极大的降低了安装维护一个软件的成本，我们甚至不需要在软件复杂的菜单中找到更新按钮，也不会有烦人的弹窗提醒你更新</li>
+<li>将软件干干净净的安装到电脑的{用户文件夹}下：既不会污染路径，也不会请求不必要的权限。</li>
+<li>卸载软件也能够尽可能的清空软件任何数据</li>
+<li>有一些必要但是安装不容易的软件例如gdb也能够一键解决</li>
+</ul>
+<h2 id="胡诌两句"><a href="#胡诌两句" class="headerlink" title="胡诌两句"></a>胡诌两句</h2><p>　　scoop学的好，理论上可以编写一个脚本，装完系统之后，只需要轻松一点脚本，就自动把常用软件安装上，还是很不错的。</p>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/peachskin/tags/source/">source</a>
-                    
-                  </div>
                 
               </div>
               
@@ -273,18 +340,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/peachskin/2021/03/03/scoop/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">scoop</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/peachskin/2020/11/01/Huffman/">
-                        <span class="hidden-mobile">Huffman</span>
+                      <a href="/peachskin/2020/11/01/download/">
+                        <span class="hidden-mobile">Download</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -422,7 +483,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Download&nbsp;",
+        "scoop&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

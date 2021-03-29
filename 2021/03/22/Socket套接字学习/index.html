@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/peachskin/img/favicon.png">
+  <link rel="icon" type="image/png" href="/peachskin/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="就是摸鱼">
+  <meta name="author" content="peach-water">
+  <meta name="keywords" content="">
+  <title>Socket套接字学习 - Thinking Peach</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/peachskin/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/peachskin/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/peachskin/js/utils.js" ></script>
+  <script  src="/peachskin/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/peachskin/">&nbsp;<strong>\Water-Peach/</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/peachskin/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-22 20:10" pubdate>
+        2021年3月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Socket套接字学习</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <center><font size='8'>Socket套接字的学习</font></center>
+<center><font size='0'>也许可以拿来写个摸鱼聊天室</font></center>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>　　计算机网络课程学习使用操作系统库socket库实现一个能够在局域网内收发消息的命令行程序。参考资料来主要自于网上的库用法教程，留下此文记录下学习的过程。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>　　socket套接字是计算机网络中应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实是一个API将复杂的TCP/IP协议隐藏在socket接口后面，对于使用的用户来说，一组简单的接口就是全部，让Socket去组织数据，而用户自己只需要关心好传输的数据，对于怎么传输并不需要过多了解。</p>
+<p>　　网络协议有分TCP和UDP两种协议，他们的作用都是收发数据包。唯一的不同是TCP面向连接，在收发数据包之前还有一个连接过程，只有建立连接之后才能发送数据包。而UDP并不需要这样一个过程，它可以做到只给一个地址，马上就能够发送，有急速发货那味了。<br>他们之间各有优劣。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>协议类型</th>
+<th>优点</th>
+<th>缺点</th>
+<th>主要用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UDP</td>
+<td>可以发送数据很快</td>
+<td>容易丢包，造成网络波动</td>
+<td>视频通话等对丢包不敏感，对速度敏感的领域</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>很稳定，不会丢包</td>
+<td>相比较于UDP，速度较慢</td>
+<td>收发文件等对进度有较高要求的</td>
+</tr>
+</tbody></table>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="TCP-Client"><a href="#TCP-Client" class="headerlink" title="TCP Client"></a>TCP Client</h2><p>　　如何在C++中使用socket（以下方法为windows10使用，教程为TCP连接，UDP再发）。首先加入socket头文件库<br> <pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Winsock2.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sindows.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;WS2_32.lib&quot;</span>)</span></code></pre><br>　　“WS2_32.lib”是windows下的socket链接库，在使用之前还需要按照如下方法初始化链接库</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+	WSADATA wsd;
+    <span class="hljs-keyword">if</span> (WSAStartup(MAKEWORD(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), &amp;wsd))
+    &#123;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;WSAStartup failed!\n&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<p>　　在一切准备妥当之后我们建立一个套接字</p>
+<pre><code class="hljs C++">SOCKET sock;
+SOCKET sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); \\ PF_INET指定连接协议族、SOCK_STREAM表明是一个TCP协议
+addr.sin_family = AF_INET;	\\
+addr.sin_addr.S_un.S_addr = inet_addr(<span class="hljs-string">&quot;127.0.0.1&quot;</span>);		\\指定服务器IP4地址
+addr.sin_port = htons(<span class="hljs-number">1234</span>);	\\服务器开放的监听端口</code></pre>
+<p>　　向服务器发送连接请求</p>
+<pre><code class="hljs C++">connect(sock, (SOCKADDR *)&amp;sockAddr, <span class="hljs-keyword">sizeof</span>(SOCKADDR)+<span class="hljs-number">10</span>);</code></pre>
+<p>　　建立连接后使用send函数向服务器发送数据</p>
+<pre><code class="hljs C++">send(sock, <span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\sock表明地址，“aaa”是发送的数据，<span class="hljs-number">512</span>是发送字符数量（当然可以使用<span class="hljs-keyword">sizeof</span>动态，但是这里就偷懒拉），<span class="hljs-number">0</span>是一个标识符，一般不动</code></pre>
+<p>　　监听来自服务器的回应</p>
+<pre><code class="hljs C++">recv(sock, szBuffer, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\szBuffer是接受字缓冲区（就是收到的字符写到哪里），</code></pre>
+
+<p>　　使用完连接资源后应当及时调用套接字关闭函数，释放被占用的资源</p>
+<pre><code class="hljs C++">closesocket(sock);</code></pre>
+
+
+<p>　　完整客户端代码</p>
+<pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;ws2_32.lib&quot;</span>)</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WinSock2.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">scmp</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *a, <span class="hljs-keyword">char</span> *b)</span></span>&#123;	<span class="hljs-comment">//</span>
+    <span class="hljs-keyword">if</span>(a[<span class="hljs-number">0</span>] == b[<span class="hljs-number">0</span>] &amp;&amp; a[<span class="hljs-number">1</span>] == b[<span class="hljs-number">1</span>] &amp;&amp; a[<span class="hljs-number">2</span>] == b[<span class="hljs-number">2</span>] &amp;&amp; a[<span class="hljs-number">3</span>] == b[<span class="hljs-number">3</span>])&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-comment">//初始化DLL</span>
+    WSADATA wsaData;
+    <span class="hljs-keyword">if</span> (WSAStartup(MAKEWORD(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), &amp;wsd))
+    &#123;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;WSAStartup failed!\n&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-comment">//创建套接字</span>
+    SOCKET sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    <span class="hljs-comment">//向服务器发起请求</span>
+    sockaddr_in sockAddr;
+
+    <span class="hljs-built_in">memset</span>(&amp;sockAddr, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(sockAddr)); <span class="hljs-comment">//每个字节都用0填充</span>
+    sockAddr.sin_family = PF_INET;
+    sockAddr.sin_addr.s_addr = inet_addr(<span class="hljs-string">&quot;127.0.0.1&quot;</span>);
+    sockAddr.sin_port = htons(<span class="hljs-number">1234</span>);
+
+    <span class="hljs-keyword">if</span> (connect(sock, (SOCKADDR *)&amp;sockAddr, <span class="hljs-keyword">sizeof</span>(SOCKADDR)+<span class="hljs-number">10</span>))
+    &#123;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;client connect error&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        closesocket(sock);
+        WSACleanup();
+        system(<span class="hljs-string">&quot;pause&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+    send(sock, <span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-comment">//接收服务器传回的数据</span>
+    
+    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+    &#123;
+        <span class="hljs-keyword">char</span> szBuffer[MAXBYTE] = &#123;<span class="hljs-number">0</span>&#125;;
+        
+        recv(sock, szBuffer, MAXBYTE, <span class="hljs-number">0</span>);
+        <span class="hljs-comment">//输出接收到的数据</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Message from server: \n&quot;</span> &lt;&lt; szBuffer &lt;&lt; <span class="hljs-built_in">endl</span> &lt;&lt;<span class="hljs-string">&quot;------------------------------&quot;</span>&lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-comment">// _sleep(50);</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;input your massage: &quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        fgets(szBuffer, <span class="hljs-number">512</span>, <span class="hljs-built_in">stdin</span>);
+        <span class="hljs-keyword">if</span>(scmp(szBuffer,<span class="hljs-string">&quot;exit&quot;</span>) )&#123;		<span class="hljs-comment">//输入exit关闭连接</span>
+            <span class="hljs-keyword">break</span>;
+        &#125;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;-------------------------------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        send(sock, szBuffer, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);
+    &#125;
+
+
+    <span class="hljs-comment">//关闭套接字</span>
+    closesocket(sock);
+    <span class="hljs-comment">//终止使用 DLL</span>
+    WSACleanup();
+    system(<span class="hljs-string">&quot;pause&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+
+<h2 id="TCP-server端"><a href="#TCP-server端" class="headerlink" title="TCP server端"></a>TCP server端</h2><p>　　上面代码已经建立了一个具备信息收发能力的客户端，接下去写一个能够接受信息也可以发送信息进行交互的服务端程序。</p>
+<p>　　服务端开头于客户端相同，不同的是套接字的建立方式<br> <pre><code class="hljs C++">sockaddr_in sockAddr;                
+sockAddr.sin_family = PF_INET;                       
+sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);   \\表示绑定本机IP4地址 
+sockAddr.sin_port = htons(<span class="hljs-number">1234</span>); 
+bind(Sock, (SOCKADDR *)&amp;Addr, <span class="hljs-keyword">sizeof</span>(SOCKADDR));	\\把这个套接字绑定到服务器对应端口</code></pre><br> 　　接受来自客户端的连接请求<br> <pre><code class="hljs C++">SOCKET clntSock = accept(Sock, (SOCKADDR *)&amp;Addr, &amp;nSize);</code></pre><br> 　　完整的服务端代码<br> <pre><code class="hljs C++"> <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;ws2_32.lib&quot;</span>)</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WinSock2.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;windows.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-comment">// #include &lt;sys/socket.h&gt;</span>
+<span class="hljs-comment">// #include &lt;netinet/in.h&gt;</span>
+<span class="hljs-comment">// #include &lt;arpa/inet.h&gt;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span>
+<span class="hljs-function"></span>&#123;
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), &amp;wsaData);
+    SOCKET Sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sockaddr_in sockAddr;
+    <span class="hljs-built_in">memset</span>(&amp;sockAddr, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(sockAddr));           
+    sockAddr.sin_family = PF_INET;               
+    sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);      
+    sockAddr.sin_port = htons(<span class="hljs-number">1234</span>); 
+    
+    bind(Sock, (SOCKADDR *)&amp;sockAddr, <span class="hljs-keyword">sizeof</span>(SOCKADDR)); 
+
+    <span class="hljs-keyword">if</span> (listen(Sock, SOMAXCONN) &lt; <span class="hljs-number">0</span>)
+    &#123;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;listen set error&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        system(<span class="hljs-string">&quot;pause&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+
+    SOCKADDR clntAddr;
+    <span class="hljs-keyword">int</span> nSize = <span class="hljs-keyword">sizeof</span>(SOCKADDR);
+    SOCKET clntSock = accept(Sock, (SOCKADDR *)&amp;clntAddr, &amp;nSize);	\\clntSock是收到的来自客户端地址，十分重要是之后发送数据依据
+    <span class="hljs-keyword">if</span> (clntSock == SOCKET_ERROR)
+    &#123;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;error&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        closesocket(clntSock);
+        closesocket(Sock);
+        WSACleanup();
+        system(<span class="hljs-string">&quot;pause&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;OK to connect&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+    &#125;
+
+    <span class="hljs-keyword">char</span> recv_buf[<span class="hljs-number">100</span>];
+    <span class="hljs-keyword">int</span> recv_len = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+    &#123;
+        recv_len = recv(clntSock, recv_buf, <span class="hljs-number">100</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">if</span> (recv_len &lt; <span class="hljs-number">0</span>)
+        &#123;
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;receive error !!&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">break</span>;
+        &#125;
+        <span class="hljs-keyword">else</span>
+        &#123;
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;message received&quot;</span> &lt;&lt; recv_buf &lt;&lt; <span class="hljs-built_in">endl</span>;
+        &#125;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;send out your message&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">char</span> send_buf[<span class="hljs-number">100</span>];
+        <span class="hljs-built_in">cin</span> &gt;&gt; send_buf;
+        <span class="hljs-keyword">int</span> send_len = <span class="hljs-built_in">strlen</span>(send_buf);
+        send_len = send(clntSock, send_buf, <span class="hljs-number">100</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">if</span> (send_len &lt; <span class="hljs-number">0</span>)
+        &#123;
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;send out successfully &quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">break</span>;
+        &#125;
+    &#125;
+    closesocket(clntSock);
+    closesocket(servSock);
+    WSACleanup();
+    system(<span class="hljs-string">&quot;pause&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p> 　　总体来说实验还是非常轻松的，可以将服务端放到真正的有公网IP的服务器上，这样就实现了一个非常简易的聊天室。尽管目前代码十分不完善，比如说只能在发送消息之后才能显示来自服务端的消息。这可以用多线程来做，不过就需要等到以后满满学习拉</p>
+<hr>
+<center><font size='0'>2021年3月22日</font></center>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/peachskin/2021/03/03/scoop/">
+                        <span class="hidden-mobile">scoop</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/peachskin/js/debouncer.js" ></script>
+<script  src="/peachskin/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/peachskin/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/peachskin/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Socket套接字学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/peachskin/js/local-search.js" ></script>
+  <script>
+    var path = "/peachskin/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

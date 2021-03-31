@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/peachskin/img/favicon.png">
+  <link rel="icon" type="image/png" href="/peachskin/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="就是摸鱼">
+  <meta name="author" content="peach-water">
+  <meta name="keywords" content="">
+  <title>广州地铁线路规划 - Thinking Peach</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/peachskin/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/peachskin/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/peachskin/js/utils.js" ></script>
+  <script  src="/peachskin/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/peachskin/">&nbsp;<strong>\Water-Peach/</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/peachskin/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-01 21:58" pubdate>
+        2020年12月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">广州地铁线路规划</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <center><font size="8">Dijkstra算法应用</font>
+
+<p><font size="0">广州地铁线路规划程序（来自Qhy的作业）</font></center></p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>　　数据结构作业的期末作业，要求设计一个广州地铁线路规划程序。输入出发站点和目的站点，输出最短乘坐路径和换乘线路方法。</p>
+<p>　　这项作业是对本学期所学的数据结构一个综合考验，比起Dijkstra算法，如何存储地铁线路图，如何将站点名称输出，如何存储图、建立图，如何将中文字符对应到一个可以计算使用的数字，以及线路更新的考虑是本程序需要考虑的重点。</p>
+<h1 id="二、核心函数"><a href="#二、核心函数" class="headerlink" title="二、核心函数"></a>二、核心函数</h1><h2 id="1、从中文走向数字"><a href="#1、从中文走向数字" class="headerlink" title="1、从中文走向数字"></a>1、从中文走向数字</h2><p>　　广州地铁上的站点都是中文字符，很明显，中文字符无论是制作成邻接表还是邻接矩阵都是不合适的，因此需要一种方法，将广州地铁上上百个站点一一转换成计算机可以用来计算的数字。人工手动更换是绝对的不合适，先不说上百个站点的标记十分累人，更加重要的是这样的程序完全没有任何的可拓展性，它就不能适应新加的地铁站点。<br>　　所以，给站点打标记的活还是要交给计算机干，这里采用的方法是，将地铁站所有的站点和站点之间的线路权值存储在同一个文件中。存储方式如下图，第一个字符表示是哪一条线路，第二个表示始发站，第三个字符串表示终点站，第四个数字表示边的权值。</p>
+<img src="http://img.yuko.buzz/images/2021/03/31/Snipaste_2021-03-31_22-18-34.png" srcset="/peachskin/img/loading.gif">
+
+<p>　　然后是从上面的数据文件中建图，注意到这个图的邻接矩阵会是一个稀疏矩阵，采用邻接表的方法存储图。部分站点可能是换乘站，为减少换乘站带来的可能问题，此处选择给同名站点名称后添加字符加以区别，例如“万胜围”在4号线出现一次，那么在8号线出现的存储为“万胜围0”以此类推。但是在这样的处理方法会导致各条线路之间不连通，和真实的地铁线路不符合，所以在换乘站之间添加一条边权为0的边连通。<br>　　除此之外段程序还做三件事情，一个是给每一个站点赋予一个独特的id，用于程序计算；二是建立一个id到文本的映射，方便文本输出线路；三是建立一个文本到id的映射，方便将收到的出发站和终点站转换为内置id。<br> <pre><code class="hljs c++"> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">subway_system::readData</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;edge&gt; &amp;edges)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">// string a;</span>
+	<span class="hljs-comment">// cin &gt;&gt; a;</span>
+	<span class="hljs-function">ifstream <span class="hljs-title">fin</span><span class="hljs-params">(<span class="hljs-string">&quot;srcdata&quot;</span>)</span></span>;
+	<span class="hljs-keyword">int</span> distance, ID[<span class="hljs-number">2</span>];
+	<span class="hljs-built_in">string</span> line, station[<span class="hljs-number">2</span>];
+
+	<span class="hljs-keyword">while</span> (fin &gt;&gt; line &gt;&gt; station[<span class="hljs-number">0</span>] &gt;&gt; station[<span class="hljs-number">1</span>] &gt;&gt; distance)
+	&#123;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++)
+		&#123;
+			<span class="hljs-keyword">auto</span> findStation = Stations.find(station[i]);
+			<span class="hljs-comment">//查找不到这个站点</span>
+			<span class="hljs-keyword">if</span> (findStation == Stations.end())
+			&#123;
+				ID[i] = Stations.size();
+				Stations[station[i]] = <span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt;(line, ID[i]);
+				station_name.push_back(station[i]);
+			&#125;
+			<span class="hljs-comment">//该站点在本线路上已经出现</span>
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((*findStation).second.first == line)
+				ID[i] = Stations[station[i]].second;
+			<span class="hljs-comment">//这是一个换乘站点</span>
+			<span class="hljs-keyword">else</span>
+			&#123;
+				<span class="hljs-built_in">string</span> it_name = station[i];
+				<span class="hljs-keyword">char</span> c = <span class="hljs-string">&#x27;1&#x27;</span>;
+				station[i] += c;
+				<span class="hljs-keyword">auto</span> it = Stations.find(station[i]);
+				<span class="hljs-keyword">while</span> (it != Stations.end() &amp;&amp; (*it).second.first != line)
+				&#123;
+					station[i].back() = ++c;
+					it = Stations.find(station[i]);
+				&#125;
+				<span class="hljs-keyword">if</span> (it == Stations.end())
+				&#123;
+					ID[i] = Stations.size();
+					Stations[station[i]] = <span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt;(line, ID[i]);
+					station_name.push_back(station[i]);
+				&#125;
+				<span class="hljs-keyword">else</span>
+					ID[i] = Stations[station[i]].second;
+				edges.push_back(edge(ID[i], Stations[it_name].second, <span class="hljs-number">0</span>));	<span class="hljs-comment">//增加边权为0的边</span>
+			&#125;
+		&#125;
+
+		edges.push_back(edge(ID[<span class="hljs-number">0</span>], ID[<span class="hljs-number">1</span>], distance));
+	&#125;
+	n = edges.size() + <span class="hljs-number">1</span>;
+	fin.close();
+	<span class="hljs-comment">//cout &lt;&lt; Stations.size() &lt;&lt; endl;</span>
+	<span class="hljs-keyword">return</span>;
+&#125;</code></pre></p>
+<h2 id="2、节点存储"><a href="#2、节点存储" class="headerlink" title="2、节点存储"></a>2、节点存储</h2><p> 　　地铁站点上是会有非常多的信息，比如说它在本程序中的id，方便Dijkstra算法必须的dis数据，bool类型的known，因此结构化为一个数据体</p>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">vertex</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">size_t</span> dis;	<span class="hljs-comment">//最短路径算法使用</span>
+	<span class="hljs-keyword">int</span> id;		<span class="hljs-comment">//在程序中的id</span>
+	<span class="hljs-keyword">int</span> path;	<span class="hljs-comment">//父节点，输出从换乘线路使用</span>
+	<span class="hljs-keyword">bool</span> known;	<span class="hljs-comment">//标记是否已经被搜索到</span>
+	<span class="hljs-keyword">bool</span> popped;<span class="hljs-comment">//输出线路使用</span>
+	vertex() : dis(inf), known(<span class="hljs-literal">false</span>), popped(<span class="hljs-literal">false</span>) &#123;&#125;
+&#125;;</code></pre>
+<h2 id="3、最短路径"><a href="#3、最短路径" class="headerlink" title="3、最短路径"></a>3、最短路径</h2><p>　　标准的Dijkstra算法，没有什么好说的。本段函数会找到最短路径，并且返回一个记录了最短路径走法的vector数组，从目的地前往始发点。因此在正式转化输出之前，还需要倒置。</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">subway_system::getShortestPath</span><span class="hljs-params">(<span class="hljs-keyword">int</span> origin, <span class="hljs-keyword">int</span> destination)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
+	<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; known;
+	<span class="hljs-comment">//initialize</span>
+	<span class="hljs-built_in">vector</span>&lt;vertex&gt; nodes;
+	nodes.resize(n);
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">size_t</span> i = <span class="hljs-number">0</span>; i &lt; nodes.size(); i++)
+	&#123;
+		nodes[i].id = i;
+		nodes[i].path = i;
+		nodes[i].popped = <span class="hljs-literal">false</span>;
+	&#125;
+	nodes[origin].dis = <span class="hljs-number">0</span>;
+	nodes[origin].known = <span class="hljs-literal">true</span>;
+	nodes[origin].path = origin;
+	known.insert(origin);
+	<span class="hljs-comment">//calculating</span>
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
+	&#123;
+		<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>, min_dis = inf;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;entry : known)
+			<span class="hljs-keyword">if</span> (!(nodes[entry].popped) &amp;&amp; nodes[entry].dis &lt; min_dis)
+			&#123;
+				min_dis = nodes[entry].dis;
+				index = entry;
+			&#125;
+		<span class="hljs-keyword">if</span> (index == destination)
+			<span class="hljs-keyword">break</span>;
+
+		<span class="hljs-comment">//cout &lt;&lt; station_name[index] &lt;&lt; &quot; &quot;;</span>
+
+		nodes[index].popped = <span class="hljs-literal">true</span>;
+		vertex u = nodes[index];
+
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;entry : E[u.id])
+		&#123;
+			<span class="hljs-keyword">if</span> (!nodes[entry.first].known)
+			&#123;
+				<span class="hljs-keyword">if</span> (nodes[entry.first].dis &gt; nodes[u.id].dis + entry.second)
+				&#123;
+					nodes[entry.first].known = <span class="hljs-literal">true</span>;
+					known.insert(entry.first);
+					nodes[entry.first].dis = nodes[u.id].dis + entry.second;
+					nodes[entry.first].path = u.id;
+				&#125;
+			&#125;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">if</span> (nodes[destination].known == <span class="hljs-literal">false</span>)
+	&#123;
+		<span class="hljs-keyword">return</span> res;
+	&#125;
+	<span class="hljs-comment">//get path</span>
+	<span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; temp;
+	<span class="hljs-keyword">int</span> cur = destination;
+	temp.push(cur);
+	<span class="hljs-keyword">while</span> (nodes[cur].path != origin)
+	&#123;
+		cur = nodes[cur].path;
+		temp.push(cur);
+	&#125;
+	temp.push(origin);
+	<span class="hljs-keyword">while</span> (!temp.empty())
+	&#123;
+		res.push_back(temp.top());
+		temp.pop();
+	&#125;
+	<span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+
+<h2 id="4、输出结果"><a href="#4、输出结果" class="headerlink" title="4、输出结果"></a>4、输出结果</h2><p>　　在上一个函数获得了最短路径的id。人是看不懂这样一个数组有任何的关系，因此还需要一个输出函数，将一串数组转换为人可以看得懂的站点输出，并且输出换乘信息</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">subway_system::checkLine</span><span class="hljs-params">(<span class="hljs-built_in">string</span> oringin, <span class="hljs-built_in">string</span> destination)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; result;
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; output;
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-built_in">string</span>&gt;&gt; transform;
+	<span class="hljs-keyword">int</span> ori = <span class="hljs-keyword">this</span>-&gt;Stations[oringin].second;
+	<span class="hljs-keyword">int</span> dest = <span class="hljs-keyword">this</span>-&gt;Stations[destination].second;
+	result = getShortestPath(ori, dest);
+	<span class="hljs-keyword">if</span> (result.size() == <span class="hljs-number">0</span>)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;不存在这样一条道路&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">string</span> a;
+		<span class="hljs-keyword">return</span> a;
+	&#125;
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; result.size(); i++)
+	&#123;	
+		output.push_back(del_num(station_name[result[i]]));
+		
+	&#125;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; result.size();i++)&#123;
+		<span class="hljs-keyword">if</span> (del_num(station_name[result[i]]) == del_num(station_name[result[i - <span class="hljs-number">1</span>]]) &amp;&amp; i &gt; <span class="hljs-number">1</span>)
+		&#123;
+			pair&lt;string, string&gt; temp(Stations[station_name[result[i]]].first, Stations[station_name[result[i - 1]]].first);
+			transform.push_back(temp);
+		&#125;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; output[<span class="hljs-number">0</span>] &lt;&lt; <span class="hljs-string">&quot;-&gt;&quot;</span>;
+	<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
+	<span class="hljs-built_in">string</span> all_in_one;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; output.size(); i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (i == output.size() - <span class="hljs-number">1</span>)
+		&#123;
+			all_in_one.append( output[i]);
+			all_in_one.append(<span class="hljs-string">&quot;\n&quot;</span>);
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (output[i] != output[i - <span class="hljs-number">1</span>])
+		&#123;
+			all_in_one.append(output[i]);
+			all_in_one.append(<span class="hljs-string">&quot;-&gt;&quot;</span>);
+			
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			all_in_one.append(<span class="hljs-string">&quot;从&quot;</span>);
+			all_in_one.append(transform[j].second);
+			all_in_one.append(<span class="hljs-string">&quot;号线转到&quot;</span>);
+			all_in_one.append(transform[j++].first);
+			all_in_one.append(<span class="hljs-string">&quot;号线\n&quot;</span>);
+			
+		&#125;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; all_in_one;
+	
+	<span class="hljs-built_in">std</span>::system(<span class="hljs-string">&quot;pause&quot;</span>);
+	<span class="hljs-keyword">return</span> all_in_one;
+&#125;</code></pre>
+<h1 id="三、其他边缘函数"><a href="#三、其他边缘函数" class="headerlink" title="三、其他边缘函数"></a>三、其他边缘函数</h1><h2 id="1、删掉站点名称后的数字"><a href="#1、删掉站点名称后的数字" class="headerlink" title="1、删掉站点名称后的数字"></a>1、删掉站点名称后的数字</h2><p>　　本项其实问题不大，主要是针对强迫症的，对人来说，多个数字一样能看</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">del_num</span><span class="hljs-params">(<span class="hljs-built_in">string</span> a)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; a.size(); i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (a[i] &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; a[i] &lt;= <span class="hljs-string">&#x27;9&#x27;</span>)
+		&#123;
+			a.erase(i, <span class="hljs-number">1</span>);
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> a;
+&#125;</code></pre>
+<h2 id="2、建图"><a href="#2、建图" class="headerlink" title="2、建图"></a>2、建图</h2><p>　　讲真，上面所谓的建图，其实只是完成了边的读入，并没有建立一个邻接表，这段函数的目的就是从边建立一个可以被最短路径算法使用的邻接表</p>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span>	//边的数据结构</span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> u, v, w;
+	edge(<span class="hljs-keyword">int</span> U, <span class="hljs-keyword">int</span> V, <span class="hljs-keyword">int</span> W = inf) :u(U), v(V), w(W) &#123;  &#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">subway_system::makeGraph</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;edge&gt; &amp;edges)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">list</span>&lt;<span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt; tmp;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = Stations.size(); i--;)	<span class="hljs-comment">//几条线路</span>
+		E.push_back(tmp);
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;item : edges)
+	&#123;
+		E[item.u].push_back(<span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;(item.v, item.w));
+		E[item.v].push_back(<span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;(item.u, item.w));
+	&#125;
+&#125;</code></pre>
+<h1 id="四、其他注意事项"><a href="#四、其他注意事项" class="headerlink" title="四、其他注意事项"></a>四、其他注意事项</h1><p>　　也就是尽量不要在window的终端上运行，或者在编译之前将<a target="_blank" rel="noopener" href="https://github.com/peach-water/guangzhou_subway">源代码</a>转换为GBK编码，不然终端看见的只有一片乱码。</p>
+<h1 id="五、回想，鸣谢"><a href="#五、回想，鸣谢" class="headerlink" title="五、回想，鸣谢"></a>五、回想，鸣谢</h1><p>　　本代码主要来自github上昊C和他的舍友大佬。最初的版本因为有一点点小问题，没有解决0权值边的问题，导致在测试的时候经常崩电脑（后来查实是因为一直压栈最后爆内存了）。仔细排查才最后发现，原来是建图的时候，没有给换乘站一个他们之间连线，导致在输出的时候一直压栈，因为没有到达目的地。但是其他部分实现的还是非常完美。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/peachskin/2021/03/03/scoop/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">scoop</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/peachskin/2020/11/01/download/">
+                        <span class="hidden-mobile">Download</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/peachskin/js/debouncer.js" ></script>
+<script  src="/peachskin/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/peachskin/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/peachskin/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "广州地铁线路规划&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/peachskin/js/local-search.js" ></script>
+  <script>
+    var path = "/peachskin/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

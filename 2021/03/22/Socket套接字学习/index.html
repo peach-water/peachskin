@@ -227,6 +227,7 @@
 <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>　　socket套接字是计算机网络中应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实是一个API将复杂的TCP/IP协议隐藏在socket接口后面，对于使用的用户来说，一组简单的接口就是全部，让Socket去组织数据，而用户自己只需要关心好传输的数据，对于怎么传输并不需要过多了解。</p>
 <p>　　网络协议有分TCP和UDP两种协议，他们的作用都是收发数据包。唯一的不同是TCP面向连接，在收发数据包之前还有一个连接过程，只有建立连接之后才能发送数据包。而UDP并不需要这样一个过程，它可以做到只给一个地址，马上就能够发送，有急速发货那味了。<br>他们之间各有优劣。</p>
 <hr>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -236,7 +237,8 @@
 <th>主要用途</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>UDP</td>
 <td>可以发送数据很快</td>
 <td>容易丢包，造成网络波动</td>
@@ -248,7 +250,9 @@
 <td>相比较于UDP，速度较慢</td>
 <td>收发文件等对进度有较高要求的</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="TCP-Client"><a href="#TCP-Client" class="headerlink" title="TCP Client"></a>TCP Client</h2><p>　　如何在C++中使用socket（以下方法为windows10使用，教程为TCP连接，UDP再发）。首先加入socket头文件库<br> <pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Winsock2.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sindows.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;WS2_32.lib&quot;</span>)</span></code></pre><br>　　“WS2_32.lib”是windows下的socket链接库，在使用之前还需要按照如下方法初始化链接库</p>
@@ -260,25 +264,13 @@
         <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
     &#125;
 &#125;</code></pre>
-<p>　　在一切准备妥当之后我们建立一个套接字</p>
-<pre><code class="hljs C++">SOCKET sock;
+<p>　　在一切准备妥当之后我们建立一个套接字<br><pre><code class="hljs C++">SOCKET sock;
 SOCKET sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); \\ PF_INET指定连接协议族、SOCK_STREAM表明是一个TCP协议
 addr.sin_family = AF_INET;	\\
 addr.sin_addr.S_un.S_addr = inet_addr(<span class="hljs-string">&quot;127.0.0.1&quot;</span>);		\\指定服务器IP4地址
-addr.sin_port = htons(<span class="hljs-number">1234</span>);	\\服务器开放的监听端口</code></pre>
-<p>　　向服务器发送连接请求</p>
-<pre><code class="hljs C++">connect(sock, (SOCKADDR *)&amp;sockAddr, <span class="hljs-keyword">sizeof</span>(SOCKADDR)+<span class="hljs-number">10</span>);</code></pre>
-<p>　　建立连接后使用send函数向服务器发送数据</p>
-<pre><code class="hljs C++">send(sock, <span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\sock表明地址，“aaa”是发送的数据，<span class="hljs-number">512</span>是发送字符数量（当然可以使用<span class="hljs-keyword">sizeof</span>动态，但是这里就偷懒拉），<span class="hljs-number">0</span>是一个标识符，一般不动</code></pre>
-<p>　　监听来自服务器的回应</p>
-<pre><code class="hljs C++">recv(sock, szBuffer, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\szBuffer是接受字缓冲区（就是收到的字符写到哪里），</code></pre>
-
-<p>　　使用完连接资源后应当及时调用套接字关闭函数，释放被占用的资源</p>
-<pre><code class="hljs C++">closesocket(sock);</code></pre>
-
-
-<p>　　完整客户端代码</p>
-<pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+addr.sin_port = htons(<span class="hljs-number">1234</span>);	\\服务器开放的监听端口</code></pre><br>　　向服务器发送连接请求<br><pre><code class="hljs C++">connect(sock, (SOCKADDR *)&amp;sockAddr, <span class="hljs-keyword">sizeof</span>(SOCKADDR)+<span class="hljs-number">10</span>);</code></pre><br>　　建立连接后使用send函数向服务器发送数据<br><pre><code class="hljs C++">send(sock, <span class="hljs-string">&quot;aaa&quot;</span>, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\sock表明地址，“aaa”是发送的数据，<span class="hljs-number">512</span>是发送字符数量（当然可以使用<span class="hljs-keyword">sizeof</span>动态，但是这里就偷懒拉），<span class="hljs-number">0</span>是一个标识符，一般不动</code></pre><br>　　监听来自服务器的回应<br><pre><code class="hljs C++">recv(sock, szBuffer, <span class="hljs-number">512</span>, <span class="hljs-number">0</span>);	\\szBuffer是接受字缓冲区（就是收到的字符写到哪里），</code></pre></p>
+<p>　　使用完连接资源后应当及时调用套接字关闭函数，释放被占用的资源<br><pre><code class="hljs C++">closesocket(sock);</code></pre></p>
+<p>　　完整客户端代码<br><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> comment(lib, <span class="hljs-meta-string">&quot;ws2_32.lib&quot;</span>)</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WinSock2.h&gt;</span></span>
@@ -346,8 +338,7 @@ addr.sin_port = htons(<span class="hljs-number">1234</span>);	\\服务器开放�
     WSACleanup();
     system(<span class="hljs-string">&quot;pause&quot;</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
-
+&#125;</code></pre></p>
 <h2 id="TCP-server端"><a href="#TCP-server端" class="headerlink" title="TCP server端"></a>TCP server端</h2><p>　　上面代码已经建立了一个具备信息收发能力的客户端，接下去写一个能够接受信息也可以发送信息进行交互的服务端程序。</p>
 <p>　　服务端开头于客户端相同，不同的是套接字的建立方式<br> <pre><code class="hljs C++">sockaddr_in sockAddr;                
 sockAddr.sin_family = PF_INET;                       
@@ -442,6 +433,13 @@ bind(Sock, (SOCKADDR *)&amp;Addr, <span class="hljs-keyword">sizeof</span>(SOCKA
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/categories/SYSU/">SYSU</a>
+                    
+                  </div>
+                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
@@ -458,6 +456,12 @@ bind(Sock, (SOCKADDR *)&amp;Addr, <span class="hljs-keyword">sizeof</span>(SOCKA
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/peachskin/2021/04/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%94%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多线程锁</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

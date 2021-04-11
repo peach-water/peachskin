@@ -228,83 +228,72 @@
 <p>　　安装的起因：在平常生活中如果要安装像gcc、git等一些需要手动配置相关参数的工具，需要先去官网下载安装程序，点击安装，之后还需要配置，不仅过程麻烦，而且工具多了之后整理起来也相当不容易，配置也很杂，整个电脑就像被污染了一样。不仅如此，在windows下配置一个能使用的GCC编译器和GDB调试器，能够不出各种奇奇怪怪的问题就已经是谢天谢地了。这时候就好羡慕隔壁的linux强大的apt包管理器，或者mac的homebrew。这时候scoop横空出世。安装scoop后，只需要在命令行输入简单的一串命令即可安装你想要的软件。比如我想安装gcc，只需要输入</p>
 <pre><code class="hljs CMD">scoop install gcc
 scoop install gdb</code></pre>
-
 <p>就能够帮我完成从安装到环境变量全部过程。从此告别百度为什么gcc命令出错。</p>
 <h2 id="2、scoop安装方法"><a href="#2、scoop安装方法" class="headerlink" title="2、scoop安装方法"></a>2、scoop安装方法</h2><h3 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1.环境要求"></a>1.环境要求</h3><ul>
 <li>Windows 7 SP1 + / Windows Server 2008+</li>
 <li>Powershell 5 或者更高版本和.NET Framework 4.5或者更高版本</li>
 <li>必须为您的用户启用PowerShell，例如Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</li>
-<li>你能够正常（最好是快速）访问最大<a target="_blank" rel="noopener" href="https://github.com/">同性交友网站</a></li>
+<li>你能够正常（最好是快速）访问最大<a target="_blank" rel="noopener" href="https://github.com">同性交友网站</a></li>
 </ul>
-<h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2.安装"></a>2.安装</h3><p>首先打开使用管理员身份打开PowerShell，在里面输入这条命令启用脚本：</p>
-<pre><code class="hljs CMD"><span class="hljs-built_in">set</span>-executionpolicy remotesigned -scope currentuser</code></pre>
-<p>然后使用这条命令一键安装：</p>
-<pre><code class="hljs CMD">iex (new-object <span class="hljs-built_in">net</span>.webclient).downloadstring(&#x27;https://get.scoop.sh&#x27;)
+<h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2.安装"></a>2.安装</h3><p>首先打开使用管理员身份打开PowerShell，在里面输入这条命令启用脚本：<br><pre><code class="hljs CMD"><span class="hljs-built_in">set</span>-executionpolicy remotesigned -scope currentuser</code></pre><br>然后使用这条命令一键安装：<br><pre><code class="hljs CMD">iex (new-object <span class="hljs-built_in">net</span>.webclient).downloadstring(&#x27;https://get.scoop.sh&#x27;)
 或者
-iwr -useb get.scoop.sh | iex</code></pre>
-<p>我们等待命令运行结束，输入</p>
-<pre><code class="hljs cmd">scoop <span class="hljs-built_in">help</span></code></pre>
-<p>如果出现了<br><img src='https://img-blog.csdnimg.cn/20191109184638568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1b3lvb2k=,size_16,color_FFFFFF,t_70' ><br>　　那么恭喜安装完成。安装到此结束。顺带一提，这个软件是默认安装到“C:\用户\scoop\”底下的。而且在此下载安装的所有软件都会在这个目录的“\app\”底下。C盘空间多，那就就此结束。如果C盘空间不够，不要急，接下去看。</p>
-<h3 id="3、移动默认安装位置"><a href="#3、移动默认安装位置" class="headerlink" title="3、移动默认安装位置"></a>3、移动默认安装位置</h3><p>　　我相信各位需要这个功能，也需要这个软件是一定有动手能力的。<br>将scoop安装到自定义目录</p>
-<pre><code class="hljs cmd">$env:SCOOP=&#x27;D:\Applications\Scoop&#x27;   \\你的目录
-[Environment]::SetEnvironmentVariable(&#x27;SCOOP&#x27;, $env:SCOOP, &#x27;User&#x27;)</code></pre>
-<p>将软件安装到这个目录</p>
-<pre><code class="hljs cmd">$env:SCOOP_GLOBAL=&#x27;F:\GlobalScoopApps&#x27;
-[Environment]::SetEnvironmentVariable(&#x27;SCOOP_GLOBAL&#x27;, $env:SCOOP_GLOBAL, &#x27;Machine&#x27;)</code></pre>
-<p>以上是命令行方法。</p>
+iwr -useb get.scoop.sh | iex</code></pre><br>我们等待命令运行结束，输入<br><pre><code class="hljs cmd">scoop <span class="hljs-built_in">help</span></code></pre><br>如果出现了<br><img src='https://img-blog.csdnimg.cn/20191109184638568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1b3lvb2k=,size_16,color_FFFFFF,t_70' ><br>　　那么恭喜安装完成。安装到此结束。顺带一提，这个软件是默认安装到“C:\用户\scoop\”底下的。而且在此下载安装的所有软件都会在这个目录的“\app\”底下。C盘空间多，那就就此结束。如果C盘空间不够，不要急，接下去看。</p>
+<h3 id="3、移动默认安装位置"><a href="#3、移动默认安装位置" class="headerlink" title="3、移动默认安装位置"></a>3、移动默认安装位置</h3><p>　　我相信各位需要这个功能，也需要这个软件是一定有动手能力的。<br>将scoop安装到自定义目录<br><pre><code class="hljs cmd">$env:SCOOP=&#x27;D:\Applications\Scoop&#x27;   \\你的目录
+[Environment]::SetEnvironmentVariable(&#x27;SCOOP&#x27;, $env:SCOOP, &#x27;User&#x27;)</code></pre><br>将软件安装到这个目录<br><pre><code class="hljs cmd">$env:SCOOP_GLOBAL=&#x27;F:\GlobalScoopApps&#x27;
+[Environment]::SetEnvironmentVariable(&#x27;SCOOP_GLOBAL&#x27;, $env:SCOOP_GLOBAL, &#x27;Machine&#x27;)</code></pre><br>以上是命令行方法。</p>
 <hr>
 <p>接下来是不适用命令行的方法：</p>
 <p>　　到“C:\用户\scoop”将所有文件拷贝到你需要的地方，例如“D:\scoop”，然后打开底下“shims”文件夹，里面有一个“scoop.cmd”的文件，右键编辑它。在里面找到这样一行代码</p>
 <pre><code class="hljs cmd">powershell -noprofile -ex unrestricted &quot;&amp; &#x27;C:\用户名字\scoop\apps\scoop\current\bin\scoop.ps1&#x27;  <span class="hljs-variable">%args%</span>;<span class="hljs-keyword">exit</span> $lastexitcode&quot;</code></pre>
-<p>修改为</p>
-<pre><code class="hljs cmd">powershell -noprofile -ex unrestricted &quot;&amp; &#x27;D:\Scoop\apps\scoop\current\bin\scoop.ps1&#x27;  <span class="hljs-variable">%args%</span>;<span class="hljs-keyword">exit</span> $lastexitcode&quot;</code></pre>
-<p>之后前往环境变量，把scoop添加的环境变量重新定位。定位到”D:\Scoop”即可。完成上述安装之后，运行</p>
-<pre><code class="hljs cmd">scoop update</code></pre>
-<p>更新软件源，更新scoop自己。就可以开始愉快的使用了。</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><table>
+<p>修改为<br><pre><code class="hljs cmd">powershell -noprofile -ex unrestricted &quot;&amp; &#x27;D:\Scoop\apps\scoop\current\bin\scoop.ps1&#x27;  <span class="hljs-variable">%args%</span>;<span class="hljs-keyword">exit</span> $lastexitcode&quot;</code></pre><br>之后前往环境变量，把scoop添加的环境变量重新定位。定位到”D:\Scoop”即可。完成上述安装之后，运行<br><pre><code class="hljs cmd">scoop update</code></pre><br>更新软件源，更新scoop自己。就可以开始愉快的使用了。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="center">命令</th>
-<th align="center">动作</th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">动作</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">search</td>
-<td align="center">搜索软件</td>
+<tbody>
+<tr>
+<td style="text-align:center">search</td>
+<td style="text-align:center">搜索软件</td>
 </tr>
 <tr>
-<td align="center">install</td>
-<td align="center">安装软件</td>
+<td style="text-align:center">install</td>
+<td style="text-align:center">安装软件</td>
 </tr>
 <tr>
-<td align="center">update</td>
-<td align="center">升级软件，不跟上软件名称即为更新scoop本身</td>
+<td style="text-align:center">update</td>
+<td style="text-align:center">升级软件，不跟上软件名称即为更新scoop本身</td>
 </tr>
 <tr>
-<td align="center">status</td>
-<td align="center">查看软件状态</td>
+<td style="text-align:center">status</td>
+<td style="text-align:center">查看软件状态</td>
 </tr>
 <tr>
-<td align="center">uninstall</td>
-<td align="center">卸载软件，卸载scoop为“scoop uninstall scoop”</td>
+<td style="text-align:center">uninstall</td>
+<td style="text-align:center">卸载软件，卸载scoop为“scoop uninstall scoop”</td>
 </tr>
 <tr>
-<td align="center">info</td>
-<td align="center">查看软件详情</td>
+<td style="text-align:center">info</td>
+<td style="text-align:center">查看软件详情</td>
 </tr>
 <tr>
-<td align="center">home</td>
-<td align="center">查看软件主页</td>
+<td style="text-align:center">home</td>
+<td style="text-align:center">查看软件主页</td>
 </tr>
 <tr>
-<td align="center">list</td>
-<td align="center">列出已安装的软件名称</td>
+<td style="text-align:center">list</td>
+<td style="text-align:center">列出已安装的软件名称</td>
 </tr>
 <tr>
-<td align="center">cache</td>
-<td align="center">安装，更新软件时的缓存，建议更新后清理</td>
+<td style="text-align:center">cache</td>
+<td style="text-align:center">安装，更新软件时的缓存，建议更新后清理</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="为什么推荐包管理器"><a href="#为什么推荐包管理器" class="headerlink" title="为什么推荐包管理器"></a>为什么推荐包管理器</h2><p>　　作为一个包管理器，最基础，也是最重要的功能就是<em>安装软件</em>。正在使用 Windows 的你一定在想：「为什么我要用它？为什么我不直接百度一下？」。<br>　　当然可以</p>
 <ul>
 <li>百度一下这个软件</li>

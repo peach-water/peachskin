@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/peachskin/img/favicon.png">
+  <link rel="icon" type="image/png" href="/peachskin/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="就是摸鱼">
+  <meta name="author" content="peach-water">
+  <meta name="keywords" content="">
+  <title>多线程锁 - Thinking Peach</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/peachskin/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/peachskin/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/peachskin/js/utils.js" ></script>
+  <script  src="/peachskin/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/peachskin/">&nbsp;<strong>\Water-Peach/</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/peachskin/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/peachskin/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-11 15:45" pubdate>
+        2021年4月11日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      980 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">多线程锁</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <center><font size='8'>多线程下冲突解决方案</font></center>
+
+<center><font size='0'>sem_t信号量的使用</font></center>
+
+
+<h1 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h1><p>　　在多线程条件下，完成对🥧的计算。实验提供有单线程版本，要求进行修改，并在代码空白处实现多线程计算。学习使用信号量，防止在多线程计算最终结果时出错。原题目来自于<a target="_blank" rel="noopener" href="https://easyhpc.net/course/106">超算平台homework3</a></p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>　　从级数中可以知道</p>
+<p>　　Pi = 4*（1 - 1/3 + 1/5 - 1/7 + 1/9 - …）</p>
+<p>　　所以问题变成了求级数累加和，此处想法便是将计算总数平均分，不同线程各自计算自己的项数和，然后输出汇总到一个解上面。</p>
+<p>　　因为不同的线程运行速度有快有慢，如果碰上两个线程对同一个共享内存进行加法操作，就会出现计算错误，为此引入信号量sem_t。</p>
+<p>　　信号量使用，最基本的使用如下<br><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;semaphore&gt;	# 引入这个库</span></span>
+
+<span class="hljs-keyword">sem_t</span> sem				# 新建一个信号量
+sem_init(&amp;sem ,<span class="hljs-number">0</span> ,<span class="hljs-number">1</span>)	# 在main中调用将信号量初始化为<span class="hljs-number">1</span>
+sem_wait(&amp;sem)			# 在进入临界区之前，等待锁释放
+sem_post(&amp;sem)			# 临界区代码运行完毕后释放掉信号量
+sem_destory(&amp;sem)		# 在主线程运行结束后，调用释放掉信号量</code></pre></p>
+<h1 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h1><p>　　当n比较小的时候，这个时候，线程同步带来的开销比较大。<br><img src="http://img.yuko.buzz/images/2021/04/11/n100000.png" srcset="/peachskin/img/loading.gif" alt="n100000.png"><br>　　当n充分大的时候，此时线程同步带来的开销相比于计算用时已经微不足道，可以看见明显的速度提升。<br><img src="http://img.yuko.buzz/images/2021/04/11/n1000000000.png" srcset="/peachskin/img/loading.gif" alt="n1000000000.png"></p>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;semaphore.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/time.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GET_TIME(now)                         \</span>
+   &#123;                                          \
+      <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">timeval</span> <span class="hljs-title">t</span>;</span>                       \
+      gettimeofday(&amp;t, <span class="hljs-literal">NULL</span>);                 \
+      now = t.tv_sec + t.tv_usec / <span class="hljs-number">1000000.0</span>; \
+   &#125;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_THREADS = <span class="hljs-number">1024</span>;
+
+<span class="hljs-keyword">long</span> thread_count;
+<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> n;
+<span class="hljs-keyword">double</span> sum;
+
+<span class="hljs-keyword">sem_t</span> sem;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">Thread_sum</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *rank)</span></span>;
+
+<span class="hljs-comment">/* Only executed by main thread */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Get_args</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Usage</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *prog_name)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Serial_pi</span><span class="hljs-params">(<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> n)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-keyword">long</span> thread; <span class="hljs-comment">/* Use long in case of a 64-bit system */</span>
+   <span class="hljs-keyword">pthread_t</span> *thread_handles;
+   <span class="hljs-keyword">double</span> start, finish, elapsed;
+
+   <span class="hljs-comment">/* please choose terms &#x27;n&#x27;, and the threads &#x27;thread_count&#x27; here. */</span>
+   n = <span class="hljs-number">10000000000</span>;		<span class="hljs-comment">// 控制计算项数</span>
+   thread_count = <span class="hljs-number">4</span>;	<span class="hljs-comment">// 线程数</span>
+
+   <span class="hljs-comment">/* You can also get number of threads from command line */</span>
+   <span class="hljs-comment">//Get_args(argc, argv);</span>
+
+   thread_handles = (<span class="hljs-keyword">pthread_t</span> *)<span class="hljs-built_in">malloc</span>(thread_count * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">pthread_t</span>));
+   sem_init(&amp;sem, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+   sum = <span class="hljs-number">0.0</span>;
+
+   GET_TIME(start);
+   <span class="hljs-keyword">for</span> (thread = <span class="hljs-number">0</span>; thread &lt; thread_count; thread++)
+      pthread_create(&amp;thread_handles[thread], <span class="hljs-literal">NULL</span>,
+                     Thread_sum, (<span class="hljs-keyword">void</span> *)thread);
+
+   <span class="hljs-keyword">for</span> (thread = <span class="hljs-number">0</span>; thread &lt; thread_count; thread++)
+      pthread_join(thread_handles[thread], <span class="hljs-literal">NULL</span>);
+   GET_TIME(finish);
+   elapsed = finish - start;
+
+   sum = <span class="hljs-number">4.0</span> * sum;
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;With n = %lld terms,\n&quot;</span>, n);
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;   Our estimate of pi = %.15f\n&quot;</span>, sum);
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The elapsed time is %e seconds\n&quot;</span>, elapsed);
+   GET_TIME(start);
+   sum = Serial_pi(n);
+   GET_TIME(finish);
+   elapsed = finish - start;
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;   Single thread est  = %.15f\n&quot;</span>, sum);
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The elapsed time is %e seconds\n&quot;</span>, elapsed);
+   <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                   pi = %.15f\n&quot;</span>, <span class="hljs-number">4.0</span> * <span class="hljs-built_in">atan</span>(<span class="hljs-number">1.0</span>));
+
+   sem_destroy(&amp;sem);
+   <span class="hljs-built_in">free</span>(thread_handles);
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125; <span class="hljs-comment">/* main */</span>
+
+<span class="hljs-comment">/*------------------------------------------------------------------*/</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">Thread_sum</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *rank)</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-keyword">long</span> my_rank = (<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span>)rank;
+   <span class="hljs-keyword">double</span> my_sum = <span class="hljs-number">0.0</span>;
+
+   <span class="hljs-comment">/*******************************************************************/</span>
+   <span class="hljs-keyword">double</span> factor = <span class="hljs-number">1</span>;
+   <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> max_size = <span class="hljs-number">0</span>;
+   <span class="hljs-keyword">if</span> (my_rank == <span class="hljs-number">3</span>)	<span class="hljs-comment">// 平均分配计算量，最后一个线程计算剩余部分。</span>
+   &#123;
+      max_size = n;
+   &#125;
+   <span class="hljs-keyword">else</span>
+   &#123;
+      max_size = my_rank * n / <span class="hljs-number">4</span> + n / <span class="hljs-number">4</span>;
+   &#125;
+   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> i = my_rank * n / <span class="hljs-number">4</span>; i &lt; max_size; i++, factor = -factor)
+   &#123;
+      my_sum += factor / (<span class="hljs-number">2</span> * (i + my_rank) + <span class="hljs-number">1</span>);
+   &#125;
+   <span class="hljs-comment">//printf(&quot;%.15lf\n&quot;, my_sum);</span>
+
+   sem_wait(&amp;sem);	<span class="hljs-comment">// 等待锁</span>
+   sum += my_sum;	<span class="hljs-comment">// 临界状态</span>
+   sem_post(&amp;sem);	<span class="hljs-comment">// 释放锁</span>
+
+   <span class="hljs-comment">/******************************************************************/</span>
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+&#125; <span class="hljs-comment">/* Thread_sum */</span>
+
+<span class="hljs-comment">/*------------------------------------------------------------------</span>
+<span class="hljs-comment"> * Function:   Serial_pi</span>
+<span class="hljs-comment"> * Purpose:    Estimate pi using 1 thread</span>
+<span class="hljs-comment"> * In arg:     n</span>
+<span class="hljs-comment"> * Return val: Estimate of pi using n terms of Maclaurin series</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Serial_pi</span><span class="hljs-params">(<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> n)</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-keyword">double</span> sum = <span class="hljs-number">0.0</span>;
+   <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> i;
+   <span class="hljs-keyword">double</span> factor = <span class="hljs-number">1.0</span>;
+
+   <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; n; i++, factor = -factor)
+   &#123;
+      sum += factor / (<span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>);
+   &#125;
+   <span class="hljs-keyword">return</span> <span class="hljs-number">4.0</span> * sum;
+
+&#125; <span class="hljs-comment">/* Serial_pi */</span>
+
+<span class="hljs-comment">/*------------------------------------------------------------------</span>
+<span class="hljs-comment"> * Function:    Get_args</span>
+<span class="hljs-comment"> * Purpose:     Get the command line args</span>
+<span class="hljs-comment"> * In args:     argc, argv</span>
+<span class="hljs-comment"> * Globals out: thread_count, n</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Get_args</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-keyword">if</span> (argc != <span class="hljs-number">3</span>)
+      Usage(argv[<span class="hljs-number">0</span>]);
+   thread_count = strtol(argv[<span class="hljs-number">1</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">10</span>);
+   <span class="hljs-keyword">if</span> (thread_count &lt;= <span class="hljs-number">0</span> || thread_count &gt; MAX_THREADS)
+      Usage(argv[<span class="hljs-number">0</span>]);
+   n = strtoll(argv[<span class="hljs-number">2</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-number">10</span>);
+   <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">0</span>)
+      Usage(argv[<span class="hljs-number">0</span>]);
+&#125; <span class="hljs-comment">/* Get_args */</span>
+
+<span class="hljs-comment">/*------------------------------------------------------------------</span>
+<span class="hljs-comment"> * Function:  Usage</span>
+<span class="hljs-comment"> * Purpose:   Print a message explaining how to run the program</span>
+<span class="hljs-comment"> * In arg:    prog_name</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Usage</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *prog_name)</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;usage: %s &lt;number of threads&gt; &lt;n&gt;\n&quot;</span>, prog_name);
+   <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;   n is the number of terms and should be &gt;= 1\n&quot;</span>);
+   <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;   n should be evenly divisible by the number of threads\n&quot;</span>);
+   <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+&#125; <span class="hljs-comment">/* Usage */</span></code></pre>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/categories/SYSU/">SYSU</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/tags/%E8%B6%85%E7%BA%A7%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">超级计算机原理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/peachskin/2021/03/22/Socket%E5%A5%97%E6%8E%A5%E5%AD%97%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">Socket套接字学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/peachskin/js/debouncer.js" ></script>
+<script  src="/peachskin/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/peachskin/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/peachskin/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "多线程锁&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/peachskin/js/local-search.js" ></script>
+  <script>
+    var path = "/peachskin/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

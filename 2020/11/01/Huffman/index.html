@@ -399,8 +399,7 @@ code_len = <span class="hljs-built_in">strlen</span>(code_buf);
 fclose(fp);
 fclose(outfile); 
 <span class="hljs-keyword">delete</span>[] data;</code></pre></li>
-<li><h3 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h3><p>　　既然压缩都已经使用了zip的函数名称，此处再次偷懒好了。<br>　　下面是需要使用的临时变量：</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">unzip</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *input, <span class="hljs-keyword">char</span> *output)</span></span>&#123;
+<li><h3 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h3>　　既然压缩都已经使用了zip的函数名称，此处再次偷懒好了。<br>　　下面是需要使用的临时变量：<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">unzip</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *input, <span class="hljs-keyword">char</span> *output)</span></span>&#123;
 	FILE *inputf=<span class="hljs-literal">NULL</span>, *outputf=<span class="hljs-literal">NULL</span>;
     <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> len=<span class="hljs-number">0</span>;
     <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> file_len=<span class="hljs-number">0</span>;	<span class="hljs-comment">//读入的文件大小</span>
@@ -411,8 +410,7 @@ fclose(outfile);
     inputf = fopen(input, <span class="hljs-string">&quot;rb&quot;</span>);
     outputf = fopen(output, <span class="hljs-string">&quot;wb+&quot;</span>);
 &#125;</code></pre>
-<p>　　然后是正式读取压缩的文件开始解压。（警告代码并没有验证解压文件是否是上述压缩算法生成的。任意解压会搞出来压缩炸弹）</p>
-<pre><code class="hljs C++"><span class="hljs-keyword">if</span> (inputf == <span class="hljs-literal">NULL</span>)
+　　然后是正式读取压缩的文件开始解压。（警告代码并没有验证解压文件是否是上述压缩算法生成的。任意解压会搞出来压缩炸弹）<pre><code class="hljs C++"><span class="hljs-keyword">if</span> (inputf == <span class="hljs-literal">NULL</span>)
         <span class="hljs-keyword">return</span>;
     fread((<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> *)&amp;len, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>), <span class="hljs-number">1</span>, inputf);	<span class="hljs-comment">//先读取字符种类</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i; i &lt; len; i++)
@@ -464,8 +462,7 @@ fclose(outfile);
     <span class="hljs-comment">// close the file</span>
     fclose(inputf);
     fclose(outputf);</code></pre></li>
-<li><h3 id="一个main函数"><a href="#一个main函数" class="headerlink" title="一个main函数"></a>一个main函数</h3><p>　　这个东西就是个人自行完成了，此处不再粘贴完整的代码。</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<li><h3 id="一个main函数"><a href="#一个main函数" class="headerlink" title="一个main函数"></a>一个main函数</h3>　　这个东西就是个人自行完成了，此处不再粘贴完整的代码。<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-keyword">char</span> input[<span class="hljs-number">100</span>] = &#123;<span class="hljs-number">0</span>&#125;, output[<span class="hljs-number">100</span>] = &#123;<span class="hljs-number">0</span>&#125;;
     <span class="hljs-keyword">int</span> opcode = <span class="hljs-number">-1</span>;
@@ -519,10 +516,9 @@ fclose(outfile);
     &#125;
 &#125;</code></pre></li>
 <li><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2></li>
-<li><h3 id="目前的问题"><a href="#目前的问题" class="headerlink" title="目前的问题"></a>目前的问题</h3><p>　* 在代码注释中提及过，解压缩是不能够验证压缩的文件是否是Huffman压缩算法生成的，如果直接解压一个正常的文件，会解压出来一个压缩炸弹或者一个啥也没有。与之配套的压缩算法中也没有加入相应的验证程序。<br>　* 没有对单一字节类型进行特化处理，比如说，压缩一个文本全部是“a”的文本文件会丢失数据，因为在建立哈夫曼树的时候没有特化考虑只有一种字节类型的情况，之后修改加入。</p>
-</li>
-<li><h3 id="没了"><a href="#没了" class="headerlink" title="没了"></a>没了</h3><p>　　作下此文，只是记一次被迫从零开始完成一个数据结构作业，*<del>diss一下qhy。应该不会有人认出来吧。如果恰巧也是这个老师教学的，</del>*</p>
-<center><font size='0'>最后更新时间：2020年11月1日</font></center>
+<li><h3 id="目前的问题"><a href="#目前的问题" class="headerlink" title="目前的问题"></a>目前的问题</h3>　<em> 在代码注释中提及过，解压缩是不能够验证压缩的文件是否是Huffman压缩算法生成的，如果直接解压一个正常的文件，会解压出来一个压缩炸弹或者一个啥也没有。与之配套的压缩算法中也没有加入相应的验证程序。
+　</em> 没有对单一字节类型进行特化处理，比如说，压缩一个文本全部是“a”的文本文件会丢失数据，因为在建立哈夫曼树的时候没有特化考虑只有一种字节类型的情况，之后修改加入。</li>
+<li><h3 id="没了"><a href="#没了" class="headerlink" title="没了"></a>没了</h3>　　作下此文，只是记一次被迫从零开始完成一个数据结构作业，<em>~diss一下qhy。应该不会有人认出来吧。如果恰巧也是这个老师教学的，~</em><center><font size='0'>最后更新时间：2020年11月1日</font></center>
 </li>
 </ul>
 
@@ -530,6 +526,13 @@ fclose(outfile);
             <hr>
             <div>
               <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/peachskin/categories/SYSU/">SYSU</a>
+                    
+                  </div>
                 
                 
                   <div class="post-meta">

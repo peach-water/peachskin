@@ -227,29 +227,22 @@
 <h2 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h2><p>　　一个txt文件，其中包括1024个星体的7项数据，一行为一个星体，分别是星体质量，星体在x、y、z上的位置，星体在x、y、z上的速度。</p>
 <ul>
 <li>实验环境：ubuntu20.04（Hype-V）</li>
-<li>编译器版本：g++ 9.3.0<h2 id="星体数据存储"><a href="#星体数据存储" class="headerlink" title="星体数据存储"></a>星体数据存储</h2>　　对于一个星体需要存放的数据有如下，主要是x、y、z空间位置，sx、sy、sz速度和mass星体质量，还有计算时一些临时变量，如计算1号星体和其他星体相互作用力总和的变量，引入这个变量还有一个作用，可以减少误差（主要是指除法的误差累积）。星体结构体数据如下：<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">planet</span> // 星体结构体</span>
+<li>编译器版本：g++ 9.3.0<h2 id="星体数据存储"><a href="#星体数据存储" class="headerlink" title="星体数据存储"></a>星体数据存储</h2>　　对于一个星体需要存放的数据有如下，主要是x、y、z空间位置，sx、sy、sz速度和mass星体质量，还有计算时一些临时变量，如计算1号星体和其他星体相互作用力总和的变量，引入这个变量还有一个作用，可以减少误差（主要是指除法的误差累积）。星体结构体数据如下：</li>
+</ul>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">planet</span> // 星体结构体</span>
 <span class="hljs-class">&#123;</span>
 	<span class="hljs-keyword">double</span> mass;	<span class="hljs-comment">// body质量</span>
 	<span class="hljs-keyword">double</span> sx, sy, sz;	<span class="hljs-comment">// body三维方向上的速度</span>
 	<span class="hljs-keyword">double</span> x, y, z;		<span class="hljs-comment">// body三维方向上的位置</span>
 	<span class="hljs-keyword">double</span> fx, fy, fz;	<span class="hljs-comment">// body三维方向上收到的力的总和</span>
-	planet()
+	planet()			<span class="hljs-comment">// 把所有数据初始化为0</span>
 	&#123;
 		mass = sx = sy = sz = x = y = z = <span class="hljs-number">0</span>;
 		fx = fy = fz = <span class="hljs-number">0</span>;
 	&#125;
-	<span class="hljs-keyword">void</span> <span class="hljs-keyword">operator</span>=(planet &amp;other)
-	&#123;
-		mass = other.mass;
-		sx = other.sx;
-		sy = other.sy;
-		sz = other.sz;
-		x = other.x;
-		y = other.y;
-		z = other.z;
-	&#125;
 &#125;;</code></pre>
-<h2 id="计算合力"><a href="#计算合力" class="headerlink" title="计算合力"></a>计算合力</h2>　　计算一个星体收到其他星体力的总和，无非两两之间计算力然后更新。例如1号星体和2号星体、1号和3号、1号和4号……1号和1024号，2号和3号、2号和4号……等等（注意，这里并不需要求2号和1号，因为在计算1号和2号时已经计算了力大小，只需要取反），因为这个模块也会在后来的多线程中被调用，因此抽象成为一个单独的函数。为了减小误差，将每次计算的力存放到临时变量中，并且在更新完所有的合力之后，更新星体的速度和位置。<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speed_change</span><span class="hljs-params">(planet &amp;a, planet &amp;b)</span></span>&#123;...&#125;
+<h2 id="计算合力"><a href="#计算合力" class="headerlink" title="计算合力"></a>计算合力</h2><p>　　计算一个星体收到其他星体力的总和，无非两两之间计算力然后更新。例如1号星体和2号星体、1号和3号、1号和4号……1号和1024号，2号和3号、2号和4号……等等（注意，这里并不需要求2号和1号，因为在计算1号和2号时已经计算了力大小，只需要取反），因为这个模块也会在后来的多线程中被调用，因此抽象成为一个单独的函数。为了减小误差，将每次计算的力存放到临时变量中，并且在更新完所有的合力之后，更新星体的速度和位置。</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speed_change</span><span class="hljs-params">(planet &amp;a, planet &amp;b)</span></span>&#123;...&#125;
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">series_stimulus</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> count, planet *<span class="hljs-built_in">array</span>)</span>				<span class="hljs-comment">// 单线程模块，count表示迭代多少次，array是计算使用的元数据。</span></span>
 <span class="hljs-function"></span>&#123;
 	<span class="hljs-keyword">while</span> (count--)
@@ -267,7 +260,8 @@
 		&#125;
 	&#125;
 &#125;</code></pre>
-<h2 id="多线程？！"><a href="#多线程？！" class="headerlink" title="多线程？！"></a>多线程？！</h2><h3 id="openmp"><a href="#openmp" class="headerlink" title="openmp"></a>openmp</h3>　　有了上面单线程的计算方法，多线程就是把单线程的for，while等循环体并行化而已，openmp！！！简直没有比这个更加快捷的方法。逐个讲解pragma omp parallel带的参数。</li>
+<h2 id="多线程？！"><a href="#多线程？！" class="headerlink" title="多线程？！"></a>多线程？！</h2><h3 id="openmp"><a href="#openmp" class="headerlink" title="openmp"></a>openmp</h3><p>　　有了上面单线程的计算方法，多线程就是把单线程的for，while等循环体并行化而已，openmp！！！简直没有比这个更加快捷的方法。逐个讲解pragma omp parallel带的参数。</p>
+<ul>
 <li>for : 表明并行化循环</li>
 <li>num_threads(n) : 并行线程数量，n可以是任意整数，其实还是看配置</li>
 <li>private(a,b,…,z) : 表明哪些变量是私有变量，不同线程之间不会相互干扰</li>
@@ -327,7 +321,8 @@
 	<span class="hljs-keyword">delete</span>[] thread_handle;
 	<span class="hljs-keyword">delete</span>[] <span class="hljs-built_in">set</span>;
 	<span class="hljs-keyword">return</span>;
-&#125;</code></pre><br>　　然后是容器内容物要怎么办，因为要手动并行化，所以这个线程做什么也需要自己计算。本处举个🌰是4线程，每个线程计算1024个星体的四分之一。为了传递参数方便，使用结构体thread_set，其一是方便、其二是因为pthread_create第四个参数是一个指针（而不是一个指针的指针），不能传递多个参数<br><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">thread_set</span> // <span class="hljs-title">pthread</span>参数表</span>
+&#125;</code></pre><br>　　然后是容器内容物要怎么办，因为要手动并行化，所以这个线程做什么也需要自己计算。本处举个🌰是4线程，每个线程计算1024个星体的四分之一。为了传递参数方便，使用结构体thread_set，其一是方便、其二是因为pthread_create第四个参数是一个指针（而不是一个指针的指针），不能传递多个参数。</p>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">thread_set</span> // <span class="hljs-title">pthread</span>参数表</span>
 <span class="hljs-class">&#123;</span>
 	<span class="hljs-keyword">int</span> rank;		<span class="hljs-comment">// 指定的线程号</span>
 	planet *o;		<span class="hljs-comment">// 计算的元数据</span>
@@ -344,7 +339,7 @@
 	&#125;
 	<span class="hljs-keyword">else</span>
 	&#123;
-		n = (rank + <span class="hljs-number">1</span>) * max_size / <span class="hljs-number">4</span>;
+		n = (rank + <span class="hljs-number">1</span>) * max_size / <span class="hljs-number">4</span>;				<span class="hljs-comment">// 如果修改线程数，这里一并修改。</span>
 	&#125;
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = rank * max_size / <span class="hljs-number">4</span>; i &lt; n; i++)
 	&#123;
@@ -354,9 +349,11 @@
 		&#125;
 	&#125;
 	<span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-&#125;</code></pre><br>　　为了能够使用pthread，需要在编译参数上增加“-lpthread”是“l”不是“i”。🌰同上。<br><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> g++ a.cpp -o a.out -lpthread</span></code></pre></p>
+&#125;</code></pre>
+<p>　　为了能够使用pthread，需要在编译参数上增加“-lpthread”是“l”不是“i”。🌰同上。<br><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> g++ a.cpp -o a.out -lpthread</span></code></pre></p>
 <h1 id="文件流"><a href="#文件流" class="headerlink" title="文件流"></a>文件流</h1><p>　　上面说了，需要从文件中读入计算数据，然后将迭代结果输出到文件。此处比较推荐的是ofstream头文件提供的文件流功能。能够像cout、cin一样使用。</p>
-<h2 id="文件读入"><a href="#文件读入" class="headerlink" title="文件读入"></a>文件读入</h2><p>　　使用前建立一个fstream文件流指针，调用open方法打开需要读入的文件。<br><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fstream&gt;</span></span>
+<h2 id="文件读入"><a href="#文件读入" class="headerlink" title="文件读入"></a>文件读入</h2><p>　　使用前建立一个fstream文件流指针，调用open方法打开需要读入的文件。然后像使用cin一样使用fp即可。</p>
+<pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fstream&gt;</span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">read</span><span class="hljs-params">(planet *<span class="hljs-built_in">array</span>)</span>				</span>
 <span class="hljs-function"></span>&#123;
@@ -371,8 +368,8 @@
 		fp &gt;&gt; <span class="hljs-built_in">array</span>[i].mass &gt;&gt; <span class="hljs-built_in">array</span>[i].x &gt;&gt; <span class="hljs-built_in">array</span>[i].y &gt;&gt; <span class="hljs-built_in">array</span>[i].z &gt;&gt; <span class="hljs-built_in">array</span>[i].sx &gt;&gt; <span class="hljs-built_in">array</span>[i].sy &gt;&gt; <span class="hljs-built_in">array</span>[i].sz;
 	&#125;
 	fp.close();				<span class="hljs-comment">// 读写结束后关闭文件</span>
-&#125;</code></pre></p>
-<h2 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h2><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(planet *<span class="hljs-built_in">array</span>, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *file)</span>			</span>
+&#125;</code></pre>
+<h2 id="文件写出"><a href="#文件写出" class="headerlink" title="文件写出"></a>文件写出</h2><p>　　一样，fstream也可以像cout一样使用，向文件写内容。<br><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(planet *<span class="hljs-built_in">array</span>, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *file)</span>			</span>
 <span class="hljs-function"></span>&#123;
 	fstream fp;
 	fp.open(file, ios::out);
@@ -387,7 +384,7 @@
 		   &lt;&lt; <span class="hljs-built_in">array</span>[i].sx &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; <span class="hljs-built_in">array</span>[i].sy &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; <span class="hljs-built_in">array</span>[i].sz &lt;&lt; <span class="hljs-built_in">endl</span>;
 	&#125;
 	fp.close();
-&#125;</code></pre>
+&#125;</code></pre></p>
 <h1 id="一个简短的main"><a href="#一个简短的main" class="headerlink" title="一个简短的main"></a>一个简短的main</h1><p>　　其实main也做不了什么，也就是调用上面写好的函数，加上一个计时器<br><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
 	<span class="hljs-keyword">double</span> start, end;
@@ -417,7 +414,7 @@
 	GET_TIME(start);
 	parallel_stimulus2(count, copy_planet);
 	GET_TIME(end)
-	<span class="hljs-built_in">cout</span> &lt;&lt; (<span class="hljs-keyword">double</span>)(end - start) / CLOCKS_PER_SEC &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; (<span class="hljs-keyword">double</span>)(end - start) &lt;&lt; <span class="hljs-built_in">endl</span>;
 	<span class="hljs-comment">// write(copy_planet, parallel2);</span>
 &#125;</code></pre></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　总体来说，本次作业还是较为简单的。本博客并没有放出speed_change()函数源码，因为在实现过程中发现和提供的标准答案的方向完全相反。和预计写法不同。同样的还有position()源码，这个函数十分简单，就是根据当前速度更新位置，当前受力情况更新速度，本处不再提供。完整实现代码可以从这里<a target="_blank" rel="noopener" href="https://github.com/peach-water/nbody_problem">获得</a></p>

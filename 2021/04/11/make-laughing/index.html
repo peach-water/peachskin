@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      41
+      42
        分钟
     </span>
   
@@ -378,7 +378,28 @@
 <li>作者：艾小仙：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkzNTEwOTAxMA==&amp;mid=2247492406&amp;idx=1&amp;sn=caf091fa2220cdbc354719bf81874bf6&amp;chksm=c2b1abcbf5c622dda34c85e15994a0d1fb01c4e07b93a597757053da5185618d4c77b89dd1ac&amp;token=2030092608&amp;lang=zh_CN#rd">程序员孔乙己</a></li>
 <li>来源：微信公众号</li>
 </ul>
-<center><font size='1'>本文最后更新于2021年5月8日</font></center>
+<h1 id="mian-or-main"><a href="#mian-or-main" class="headerlink" title="mian or main"></a>mian or main</h1><p>　　为什么我写代码时总是会手滑把main打成mian?<br><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;thread&gt;</span></span>
+
+<span class="hljs-keyword">void</span> 左手()&#123;
+	<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;a&#x27;</span>);
+&#125;
+
+<span class="hljs-keyword">void</span> 右手()&#123;
+	<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;m&#x27;</span>);
+	<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;i&#x27;</span>);
+	<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;n&#x27;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+	<span class="hljs-built_in">std</span>::thread 左手线程(左手);
+	<span class="hljs-built_in">std</span>::thread 右手线程(右手);
+   右手线程.join();
+   左手线程.join();
+   
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></p>
+<center><font size='1'>本文最后更新于2021年5月27日</font></center>
             </div>
             <hr>
             <div>

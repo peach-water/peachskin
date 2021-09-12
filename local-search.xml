@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>安装pyrealsense2的python包</title>
+    <link href="/peachskin/2021/09/12/%E5%AE%89%E8%A3%85pyrealsense2%E7%9A%84python%E5%8C%85/"/>
+    <url>/peachskin/2021/09/12/%E5%AE%89%E8%A3%85pyrealsense2%E7%9A%84python%E5%8C%85/</url>
+    
+    <content type="html"><![CDATA[<center><font size='8'>手动安装pyrealsense2</font></center><p>　　最近在实验室做无人机的深度相机测试遇到的小问题。在此记录一下当时的解决方法。</p><p>首先说明环境</p><div class="table-container"><table><thead><tr><th>硬件</th><th>版本</th></tr></thead><tbody><tr><td>计算平台</td><td>nvidia nano</td></tr><tr><td>相机</td><td>intelRealsense D435i</td></tr><tr><td>系统版本</td><td>ubuntu 18.04</td></tr><tr><td>python</td><td>python 3.7.10</td></tr></tbody></table></div><h1 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h1><p>　　本文以conda下的drone环境做演示。</p><ul><li>从intelRealsense中下载源文件<a href="https://github.com/IntelRealSense/librealsense">IntelRealsense</a></li><li>安装cmake-gui软件，方便调整编译参数，能够可视化调整最好。当然也不是非装不可，不过在这里就不演示不安装要如何调整编译参数了。<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> sudo apt install cmake-gui</span></code></pre></li><li>在librealsense文件夹下打开终端，输入<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> cmake-gui</span></code></pre></li><li><p>重点关注两个选项其中的PYTHON-EXECUTABLE和CMAKE_INSTALL_PREFIX两个参数，其中前一个会决定编译的是哪个版本的python包，第二个决定这个python包会安装到哪里去。</p><ul><li>设置PYTHON-EXECUTABLE=/(conda path)/envs/drone(你可以换成你自己的环境位置)/bin/python3.7</li><li>设置CMAKE_INSTALL_PREFIX=/(conda path)/envs/drone/</li></ul></li><li><p>完成上面的配置之后，点击generate生成配置文件，然后</p><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> make -j2 &amp;&amp; make install</span></code></pre><p>make -j，这个j后面的数字是指用几个核心去编译，核心越多编译越快，具体看自身平台状况</p></li></ul><h1 id="存在的小问题"><a href="#存在的小问题" class="headerlink" title="存在的小问题"></a>存在的小问题</h1><h2 id="no-pipline"><a href="#no-pipline" class="headerlink" title="no pipline"></a>no pipline</h2><p>　　表现为：import pyrealsense2 as rs这条命令可以通过，但是pipline = rs.pipline就会报错，报错的内容就是pyrealsense2 没有 pipline</p><p>　　解决方法：这是安装存在的一个小问题，makefile中似乎没有写好init.py的安装，具体的方法就是把librealsense/wrapper/python/pyrealsense/底下的init.py文件拷贝到…/drone/lib/python/pyrealsense2/即可</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>SYSU</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>nvidia nano</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>N体问题</title>
     <link href="/peachskin/2021/05/05/N%E4%BD%93%E9%97%AE%E9%A2%98/"/>
     <url>/peachskin/2021/05/05/N%E4%BD%93%E9%97%AE%E9%A2%98/</url>
